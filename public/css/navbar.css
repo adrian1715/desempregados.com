@@ -1,0 +1,4 @@
+.navbar-brand:hover {
+  color: blue;
+  opacity: 0.5;
+}

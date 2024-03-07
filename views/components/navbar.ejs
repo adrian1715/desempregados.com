@@ -1,0 +1,43 @@
+<header>
+  <nav class="navbar navbar-expand-lg bg-body-tertiary">
+    <div class="container">
+      <a class="navbar-brand" href="#"
+        ><img
+          src="/img/carteira-trabalho.png"
+          alt="carteira de trabalho"
+          class="img-fluid me-1"
+          style="max-height: 1rem"
+        />desempregados.com</a
+      >
+      <button
+        class="navbar-toggler"
+        type="button"
+        data-bs-toggle="collapse"
+        data-bs-target="#navbarNav"
+        aria-controls="navbarNav"
+        aria-expanded="false"
+        aria-label="Toggle navigation"
+      >
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav d-flex justify-content-around w-100">
+          <% for (link of pages) { %>
+          <li class="nav-item">
+            <% if (link === "index") { %>
+            <a href="/" class="nav-link text-center">HOME</a>
+            <% } else { %>
+            <a href="/<%= link.toLowerCase() %>" class="nav-link text-center"
+              ><%= link.toUpperCase() %></a
+            >
+            <% } %>
+          </li>
+          <% } %>
+        </ul>
+        <span class="ms-lg-4 py-1"
+          ><a href="" class="btn btn-outline-dark">Login</a>
+        </span>
+      </div>
+    </div>
+  </nav>
+</header>

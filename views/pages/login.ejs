@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Login - Desempregados.com</title>
+    <link rel="stylesheet" href="/bootstrap/bootstrap.min.css" />
+    <link rel="stylesheet" href="/css/navbar.css" />
+  </head>
+  <body>
+    <%- include('../components/navbar') %>
+    <div class="container mt-4">
+      <div id="login-panel">
+        <h1>Login</h1>
+        <form action="#">
+          <input type="text" placeholder="Username" />
+          <input type="password" placeholder="Password" />
+          <button class="btn btn-primary">Login</button>
+        </form>
+        <p>Don't you have an account? <a href="">Register</a> now!</p>
+      </div>
+    </div>
+
+    <script src="/bootstrap/bootstrap.bundle.js"></script>
+  </body>
+</html>
