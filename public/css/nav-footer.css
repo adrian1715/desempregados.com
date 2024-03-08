@@ -1,0 +1,53 @@
+html,
+body {
+  background: rgb(194, 204, 213);
+  height: 100%;
+}
+
+nav {
+  font-size: 18px;
+  background: rgb(118, 197, 243);
+}
+
+.nav-link {
+  padding: 0px;
+}
+
+.nav-link:hover {
+  color: white !important;
+}
+
+main {
+  /* margin-top: 3rem; */
+  min-height: 85.5vh;
+}
+
+footer {
+  bottom: 0;
+  background: rgb(4, 4, 99);
+  width: 100%;
+  padding-top: 80px;
+  margin-top: 24px;
+}
+
+footer a {
+  color: white;
+  text-decoration: none;
+  transition: opacity 0.3s ease-in-out;
+}
+
+footer a:hover {
+  opacity: 0.3;
+}
+
+footer img {
+  height: 30px;
+  width: 30px;
+  margin: 0px 5px;
+}
+
+@media (min-width: 992px) {
+  nav ul {
+    width: 65%;
+  }
+}

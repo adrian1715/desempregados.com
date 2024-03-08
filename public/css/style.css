@@ -1,0 +1,63 @@
+h1 {
+  font-family: Bebas Neue;
+}
+
+h1,
+h2 {
+  color: rgb(65, 62, 62);
+}
+
+#search-button {
+  margin: 0px;
+}
+
+#search-button:hover {
+  border: solid 1px black;
+}
+
+#sec-1 {
+  background-image: url("https://media.istockphoto.com/id/1287455184/photo/banner-panorama-portrait-of-young-smiling-cheerful-businessman-manager-entrepreneur-with.jpg?s=612x612&w=0&k=20&c=cNzthtNrHtc4tjEDAd6jEOlGlQpAPC1-ar1FKX-bXF0=");
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+  padding: 75px 0px;
+  height: 50vh;
+}
+
+#sec-2 {
+  background: rgb(194, 204, 213);
+  padding: 35px 0 5px 0;
+}
+
+.sec-2-cont {
+  margin-bottom: 12px;
+}
+.sec-2-cont ul {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  /* padding: 0; */
+}
+
+@media (min-width: 1400px) {
+  #welcome-message {
+    font-size: 120px;
+  }
+}
+
+@media (min-width: 992px) and (max-width: 1399px) {
+  #welcome-message {
+    font-size: 80px;
+  }
+}
+
+@media (max-width: 992px) {
+  #welcome-message {
+    font-size: 60px;
+  }
+}
+
+@media (max-width: 768px) {
+  #sec-2 {
+    font-size: 18px;
+  }
+}
