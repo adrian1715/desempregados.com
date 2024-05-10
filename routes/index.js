@@ -4,7 +4,7 @@ const router = express.Router();
 const path = require("path");
 
 router.get("/", (req, res) => {
-  res.render("index");
+  res.render("index", { title: "Homepage - desempregados.com" });
 });
 
 router.get("/desempregados", (req, res) => {

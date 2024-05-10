@@ -1,4 +1,7 @@
+.navbar-brand {
+  transition: all 0.3s ease;
+}
+
 .navbar-brand:hover {
-  color: blue;
-  opacity: 0.5;
+  opacity: 0.75;
 }
