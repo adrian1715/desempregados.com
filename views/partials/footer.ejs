@@ -1,5 +1,48 @@
-<footer class="footer bg-dark py-3 mt-auto">
-  <div class="container">
-    <span class="text-secondary">&copy;desempregados Inc.</span>
+<footer
+  class="footer bg-dark d-flex align-items-center py-5 py-lg-0 pt-lg-3 pb-lg-4"
+>
+  <div
+    class="container border-top w-100 pt-3 col-md-4 d-flex align-items-center flex-wrap justify-content-between"
+  >
+    <span class="mb-3 mb-lg-0 text-secondary">© 2023 Desempregados, Inc</span>
+
+    <ul class="nav justify-content-center mb-3 mb-lg-0 ps-3 p-sm-0">
+      <% for (link of pages) { %>
+      <li class="nav-item col-12 col-sm-auto">
+        <% if (link === "index") { %>
+        <a href="/" class="px-2 py-1 d-flex col-12">Home</a>
+        <% } else { %>
+        <a href="/<%= link.toLowerCase() %>" class="px-2 py-1 d-flex col-12"
+          ><%= link[0].toUpperCase() + link.substring(1) %></a
+        >
+        <% } %>
+      </li>
+      <% } %>
+    </ul>
+
+    <ul class="nav justify-content-end d-flex">
+      <li class="nav-item">
+        <a href="">
+          <img
+            src="https://png.pngtree.com/png-vector/20221018/ourmid/pngtree-instagram-social-platform-icon-png-image_6315976.png"
+            alt="instagram"
+        /></a>
+      </li>
+      <li class="nav-item">
+        <a href="">
+          <img
+            src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/51/Facebook_f_logo_%282019%29.svg/2048px-Facebook_f_logo_%282019%29.svg.png"
+            alt="facebook"
+        /></a>
+      </li>
+      <li class="nav-item">
+        <a href="">
+          <img
+            src="https://logodownload.org/wp-content/uploads/2014/09/twitter-logo-2-1.png"
+            alt="twitter"
+            class="pt-1"
+        /></a>
+      </li>
+    </ul>
   </div>
 </footer>

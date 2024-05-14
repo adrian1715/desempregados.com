@@ -25,10 +25,10 @@
           <% for (link of pages) { %>
           <li class="nav-item">
             <% if (link === "index") { %>
-            <a href="/" class="nav-link text-center">HOME</a>
+            <a href="/" class="nav-link text-center">Home</a>
             <% } else { %>
             <a href="/<%= link.toLowerCase() %>" class="nav-link text-center"
-              ><%= link.toUpperCase() %></a
+              ><%= link[0].toUpperCase() + link.substring(1)%></a
             >
             <% } %>
           </li>

@@ -20,3 +20,19 @@ body {
   bottom: 0;
   width: 100%;
 }
+
+footer a {
+  color: white;
+  text-decoration: none;
+  transition: opacity 0.3s ease-in-out;
+}
+
+footer a:hover {
+  opacity: 0.3;
+}
+
+footer img {
+  height: 30px;
+  width: 30px;
+  margin: 0px 5px;
+}
