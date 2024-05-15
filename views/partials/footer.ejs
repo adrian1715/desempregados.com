@@ -13,7 +13,8 @@
         <a href="/" class="px-2 py-1 d-flex col-12">Home</a>
         <% } else { %>
         <a href="/<%= link.toLowerCase() %>" class="px-2 py-1 d-flex col-12"
-          ><%= link[0].toUpperCase() + link.substring(1) %></a
+          ><%= link[0].toUpperCase() + link.substring(1).replace(/-/g, ' ')
+          %></a
         >
         <% } %>
       </li>
