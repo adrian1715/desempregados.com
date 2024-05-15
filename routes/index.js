@@ -28,7 +28,9 @@ router.get("/contato", (req, res) => {
 });
 
 router.get("/login", (req, res) => {
-  res.render("login");
+  res.render("auth/login");
 });
+
+router.get("/register", (req, res) => res.render("auth/register"));
 
 module.exports = router;
