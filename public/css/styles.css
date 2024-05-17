@@ -5,7 +5,14 @@ body {
 }
 
 /* NAVBAR */
-.navbar-brand {
+nav {
+  background: rgb(207, 213, 219);
+  /* border-bottom: solid 0.1px black; */
+}
+
+.navbar-brand,
+.nav-link {
+  font-size: 1.3rem;
   transition: all 0.3s ease;
 }
 
@@ -13,12 +20,17 @@ body {
   opacity: 0.75;
 }
 
+.nav-link:hover {
+  opacity: 0.5;
+}
+
 /* FOOTER */
 .footer {
-  position: fixed;
+  /* position: fixed; */
   left: 0;
   bottom: 0;
   width: 100%;
+  padding-top: 80px;
 }
 
 footer a {
@@ -33,6 +45,6 @@ footer a:hover {
 
 footer img {
   height: 30px;
-  width: 30px;
+  width: 28px;
   margin: 0px 5px;
 }

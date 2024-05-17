@@ -4,12 +4,14 @@ const router = express.Router();
 const path = require("path");
 
 router.get("/", (req, res) => {
-  res.render("index", { title: "Homepage - desempregados.com" });
+  res.render("index", {
+    title: "Homepage - desempregados.com",
+    styles: [
+      "https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap",
+      "/css/desempregados.css",
+    ],
+  });
 });
-
-// router.get("/desempregados", (req, res) => {
-//   res.sendFile(path.join(__dirname, "../views/pages", "desempregados.html"));
-// });
 
 router.get("/vagas", (req, res) => {
   res.render("vagas");

@@ -1,72 +1,25 @@
-html,
-body {
-  background: rgb(194, 204, 213);
-  height: 100%;
-}
-
-nav {
-  font-size: 18px;
-  background: rgb(118, 197, 243);
-}
-
-.navbar-brand,
-.nav-link {
-  transition: all 0.3s ease;
-}
-
-.navbar-brand:hover {
-  opacity: 0.75;
-}
-
-/* .nav-link {
-  padding: 0px;
-  transition: opacity 0.3s ease-in-out;
-} */
-
-.nav-link:hover {
-  opacity: 0.5;
-}
-
 main {
   min-height: 85.5vh;
 }
 
-footer {
-  bottom: 0;
-  width: 100%;
-  padding-top: 80px;
-  margin-top: 24px;
-}
-
-footer a {
-  color: white;
-  text-decoration: none;
-  transition: opacity 0.3s ease-in-out;
-}
-
-footer a:hover {
-  opacity: 0.3;
-}
-
-footer img {
-  height: 30px;
-  width: 28px;
-  margin: 0px 5px;
-}
-
-@media (min-width: 992px) {
-  nav ul {
-    width: 65%;
-  }
-}
-
-h1 {
+h1,
+h2,
+h3 {
   font-family: Bebas Neue;
+  /* font line contour */
+  /* -webkit-text-stroke: 0.5px white; */
+  text-shadow: 1.5px 1px white;
+  font-weight: 600 !important;
 }
 
 h1,
-h2 {
+h2,
+h3 {
   color: rgb(65, 62, 62);
+}
+
+h2 {
+  font-size: 3.5rem !important;
 }
 
 #search-button {
@@ -79,17 +32,36 @@ h2 {
   border: solid 1px rgb(219, 210, 210);
 }
 
-#sec-1 {
+.card {
+  text-decoration: none;
+}
+
+.card:hover {
+  opacity: 0.75;
+  cursor: pointer;
+}
+
+section {
+  margin: 10rem 0;
+}
+
+main {
   background-image: url("https://media.istockphoto.com/id/1287455184/photo/banner-panorama-portrait-of-young-smiling-cheerful-businessman-manager-entrepreneur-with.jpg?s=612x612&w=0&k=20&c=cNzthtNrHtc4tjEDAd6jEOlGlQpAPC1-ar1FKX-bXF0=");
   background-repeat: no-repeat;
   background-size: 100% 100%;
-  padding: 75px 0px;
+  padding: 10rem 0;
+  height: calc(100vh - 88px);
+  box-shadow: inset 0 0 0 1000px rgba(50, 50, 50, 0.35);
 }
 
-#sec-2 {
+/* TRABALHOS section */
+
+/* OPORTUNIDADES section */
+
+/* #sec-2 {
   background: rgb(194, 204, 213);
   padding: 35px 0 5px 0;
-}
+} */
 
 .sec-2-cont {
   margin-bottom: 12px;
@@ -100,26 +72,89 @@ h2 {
   align-items: center;
 }
 
-@media (min-width: 1400px) {
-  #welcome-message {
-    font-size: 120px;
-  }
+/* COMPANIES section */
+#companies-section {
+  background-image: url("https://www.wework.com/ideas/wp-content/uploads/sites/4/2017/06/Web_150DPI-20190927_10th_Floor_Conference_Room_2_v1.jpg");
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+  box-shadow: inset 0 0 0 1000px rgba(50, 50, 50, 0.35);
 }
 
-@media (min-width: 992px) and (max-width: 1399px) {
-  #welcome-message {
-    font-size: 80px;
-  }
+/* FUNCIONÁRIOS section */
+
+.sec-large {
+  background-image: url("https://www.ispblog.com.br/wp-content/uploads/2015/06/7-qualidades-que-todo-funcion%C3%A1rio-de-provedores-deve-ter.jpg");
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+  padding: 5rem 0rem;
+  height: 100vh;
+  box-shadow: inset 0 0 0 1000px rgba(50, 50, 50, 0.35);
 }
 
-@media (max-width: 992px) {
-  #welcome-message {
-    font-size: 60px;
+.sec-title-large {
+  font-size: 2.8rem !important;
+}
+
+.sec-subtitle-large {
+  font-size: 1.2rem !important;
+  -webkit-text-stroke: 0.3px black;
+}
+
+/* SMALL */
+@media (min-width: 576px) {
+  .sec-large {
+    padding: 10rem 0rem !important;
   }
 }
 
 @media (max-width: 768px) {
   #sec-2 {
     font-size: 18px;
+  }
+}
+
+/* MEDIUM */
+@media (min-width: 768px) {
+  .sec-title-large {
+    font-size: 3rem !important;
+  }
+}
+
+@media (max-width: 992px) {
+  #welcome-message {
+    font-size: 60px !important;
+  }
+}
+
+/* LARGE */
+@media (min-width: 992px) {
+  nav ul {
+    width: 65%;
+  }
+
+  /* .sec-large {
+    padding: 15rem 0rem !important;
+  } */
+  .sec-title-large {
+    font-size: 4rem !important;
+  }
+
+  #welcome-message {
+    font-size: 80px !important;
+  }
+}
+
+/* EXTRA LARGE */
+@media (min-width: 1400px) {
+  /* .sec-large {
+    padding: 20rem 0rem !important;
+  } */
+  .sec-subtitle-large {
+    font-size: 1.5rem !important;
+    -webkit-text-stroke: 0.5px black !important;
+  }
+
+  #welcome-message {
+    font-size: 7.5rem !important;
   }
 }
