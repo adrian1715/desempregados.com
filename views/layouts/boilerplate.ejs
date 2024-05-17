@@ -3,11 +3,16 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <!-- rendering dynamic title -->
     <% if (typeof title !== 'undefined') { %>
     <title><%= title %></title>
     <% } else { %>
     <title>Desempregados</title>
-    <% } %> <% if (typeof icon !== 'undefined') { %>
+    <% } %>
+
+    <!-- rendering dynamic icon -->
+    <% if (typeof icon !== 'undefined') { %>
     <link rel="icon" href="<%= icon %>" type="image/x-icon" />
     <% } else { %>
     <link
@@ -17,12 +22,17 @@
     />
     <% } %>
 
+    <!-- rendering dynamic css stylesheet -->
+    <% if(typeof styles !== 'undefined') { for (let style of styles) { %>
+    <link rel="stylesheet" href="<%= style %>" />
+    <% } } %>
+
     <link rel="stylesheet" href="/bootstrap/bootstrap.min.css" />
     <link rel="stylesheet" href="/css/styles.css" />
   </head>
   <body>
     <%- include('../partials/navbar') %>
-    <main class="container mt-4"><%- body %></main>
+    <main><%- body %></main>
     <%- include('../partials/footer') %>
     <script src="/bootstrap/bootstrap.bundle.js"></script>
   </body>
