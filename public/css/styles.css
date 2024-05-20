@@ -1,13 +1,15 @@
 html,
 body {
-  height: 100vh;
   margin: 0;
+  /* display: flex;
+  flex-direction: column; */
+  /* min-height: 100vh; */
+  /* min-height: calc(100vh - 90px); */
 }
 
 /* NAVBAR */
 nav {
   background: rgb(207, 213, 219);
-  /* border-bottom: solid 0.1px black; */
 }
 
 .navbar-brand,
@@ -24,13 +26,19 @@ nav {
   opacity: 0.5;
 }
 
+/* MAIN */
+main {
+  /* flex: 1; */
+  min-height: calc(100vh - 88px);
+}
+
 /* FOOTER */
 .footer {
-  /* position: fixed; */
+  /* position: relative;
   left: 0;
-  bottom: 0;
+  bottom: 0; */
   width: 100%;
-  padding-top: 80px;
+  margin-top: auto;
 }
 
 footer a {

@@ -15,31 +15,23 @@
       integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ"
       crossorigin="anonymous"
     />
+    <link rel="stylesheet" href="/css/styles.css" />
+    <link rel="stylesheet" href="/css/auth.css" />
 
     <style>
       body {
         background-image: url("https://img.freepik.com/free-photo/happy-young-man-look-out-from-blank-banner-with-thumb-up-isolated-white_186202-8928.jpg?w=2000");
-        background-repeat: no-repeat;
-        background-size: 100% 100vh;
-      }
-
-      @media (min-width: 992px) {
-        form {
-          width: 35%;
-        }
       }
     </style>
   </head>
 
   <body>
-    <div
-      class="container d-flex justify-content-center"
-      style="margin-top: 15vh"
-    >
+    <main class="container d-flex justify-content-center">
       <form
+        id="form-container"
         action=""
         method="POST"
-        class="bg-light border rounded px-4 pt-2 pb-4"
+        class="bg-light border rounded px-4 pt-2 pb-4 h-auto login-form"
       >
         <h1 class="mb-3">Login</h1>
         <div class="input-group">
@@ -97,6 +89,7 @@
         <span>Não possui uma conta?</span
         ><a href="/register" class="text-decoration-none ms-1">Cadastre-se!</a>
       </form>
-    </div>
+    </main>
+    <%- include('../../partials/footer.ejs') %>
   </body>
 </html>

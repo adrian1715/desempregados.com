@@ -8,7 +8,7 @@ router.get("/", (req, res) => {
     title: "Homepage - desempregados.com",
     styles: [
       "https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap",
-      "/css/desempregados.css",
+      "/css/home.css",
     ],
   });
 });
@@ -17,16 +17,20 @@ router.get("/vagas", (req, res) => {
   res.render("vagas");
 });
 
-router.get("/cadastrar-vaga", (req, res) => {
-  res.render("cadastrar-vaga");
+router.get("/empresas", (req, res) => {
+  res.render("empresas");
+});
+
+router.get("/carreiras", (req, res) => {
+  res.render("carreiras");
+});
+
+router.get("/candidatos", (req, res) => {
+  res.render("candidatos");
 });
 
 router.get("/sobre", (req, res) => {
   res.render("sobre");
-});
-
-router.get("/contato", (req, res) => {
-  res.render("contato");
 });
 
 router.get("/login", (req, res) => {
