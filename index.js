@@ -6,6 +6,7 @@ const ejsMate = require("ejs-mate");
 
 const getPages = require("./middlewares/getPages");
 const routes = require("./routes/index");
+const db = require("./config/db.js"); // connecting to database
 
 // setting up views pages
 app.engine("ejs", ejsMate);
