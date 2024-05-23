@@ -37,6 +37,10 @@ h2 {
   cursor: pointer;
 }
 
+.card img {
+  height: 10rem !important;
+}
+
 section {
   margin: 10rem 0;
 }
@@ -53,15 +57,10 @@ main {
 
 /* OPORTUNIDADES section */
 
-/* #sec-2 {
-  background: rgb(194, 204, 213);
-  padding: 35px 0 5px 0;
-} */
-
-.sec-2-cont {
+.oportunities-cont {
   margin-bottom: 12px;
 }
-.sec-2-cont ul {
+.oportunities-cont ul {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -93,18 +92,19 @@ main {
 .sec-subtitle-large {
   font-size: 1.2rem !important;
   -webkit-text-stroke: 0.3px black;
+  font-weight: 500;
+}
+
+@media (max-width: 400px) {
+  .card {
+    width: 40% !important;
+  }
 }
 
 /* SMALL */
 @media (min-width: 576px) {
   .sec-large {
     padding: 10rem 0rem !important;
-  }
-}
-
-@media (max-width: 768px) {
-  #sec-2 {
-    font-size: 18px;
   }
 }
 
