@@ -1,0 +1,18 @@
+<%- layout("../layouts/boilerplate.ejs") %>
+<main class="container d-flex justify-content-center align-items-start">
+  <div class="card mt-5 w-sm-50">
+    <div class="card-header pt-4 pb-5">
+      <h1><%= error.status %> <%= error.message %></h1>
+      <p><%- error.info %></p>
+    </div>
+    <div class="card-body">
+      <button class="btn btn-secondary" onclick="window.history.back()">
+        <i class="bi bi-arrow-left"></i>
+        <!-- Voltar -->
+      </button>
+      <a href="/" class="btn btn-primary"
+        ><i class="bi bi-house me-2"></i>Home</a
+      >
+    </div>
+  </div>
+</main>
