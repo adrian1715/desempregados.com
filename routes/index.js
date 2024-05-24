@@ -2,6 +2,7 @@ const express = require("express");
 const router = express.Router();
 
 const path = require("path");
+const CustomError = require("../utils/CustomError");
 
 router.get("/", (req, res) => {
   res.render("index", {
@@ -21,9 +22,7 @@ router.get("/empresas", (req, res) => {
   res.render("empresas");
 });
 
-router.get("/carreiras", (req, res) => {
-  res.render("carreiras");
-});
+router.use("/carreiras", require("./careers"));
 
 router.get("/candidatos", (req, res) => {
   res.render("candidatos");

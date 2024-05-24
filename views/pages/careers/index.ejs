@@ -1,0 +1,74 @@
+<%- layout("../layouts/boilerplate") %>
+<main class="container py-5">
+  <h1>Carreiras</h1>
+  <ul>
+    <!-- <div class="container">
+  <div class="row">
+    <div class="col-md-4">
+      <div class="career-card">
+        <h2>Doctor</h2>
+        <p>
+          Explore the journey and responsibilities of medical professionals.
+        </p>
+        <a href="/doctor.html" class="btn btn-primary">Read More</a>
+      </div>
+    </div>
+    <div class="col-md-4">
+      <div class="career-card">
+        <h2>Lawyer</h2>
+        <p>
+          Discover the career path and responsibilities of legal professionals.
+        </p>
+        <a href="/lawyer.html" class="btn btn-primary">Read More</a>
+      </div>
+    </div>
+    <div class="col-md-4">
+      <div class="career-card">
+        <h2>Engineer</h2>
+        <p>
+          Learn about the field of engineering and the diverse career opportunities it offers.
+        </p>
+        <a href="/engineer.html" class="btn btn-primary">Read More</a>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-4">
+      <div class="career-card">
+        <h2>Player</h2>
+        <p>
+          Explore the career of professional athletes and the challenges they face.
+        </p>
+        <a href="/player.html" class="btn btn-primary">Read More</a>
+      </div>
+    </div>
+    <div class="col-md-4">
+      <div class="career-card">
+        <h2>Programmer</h2>
+        <p>
+          Discover the world of coding and software development.
+        </p>
+        <a href="/programmer.html" class="btn btn-primary">Read More</a>
+      </div>
+    </div>
+    <div class="col-md-4">
+      <div class="career-card">
+        <h2>Chef</h2>
+        <p>
+          Delve into the culinary arts and the career of a chef.
+        </p>
+        <a href="/chef.html" class="btn btn-primary">Read More</a>
+      </div>
+    </div>
+  </div>
+</div> -->
+
+    <% for(let career of careers) { if(career !== 'index') { %>
+    <li>
+      <a href="/carreiras/<%= career %>"
+        ><%= career[0].toUpperCase() + career.substring(1) %></a
+      >
+    </li>
+    <% } } %>
+  </ul>
+</main>
