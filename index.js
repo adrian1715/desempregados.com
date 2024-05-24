@@ -6,6 +6,7 @@ const ejsMate = require("ejs-mate");
 
 const getPages = require("./middlewares/getPages");
 const { notFound, errorHandler } = require("./middlewares/errorHandler");
+const { logger } = require("./middlewares/logEvents");
 
 require("./config/db.js"); // connecting to database
 
@@ -17,6 +18,7 @@ app.use(express.static("public"));
 
 // middlewares
 app.use(getPages); // getting pages
+app.use(logger); // log generator
 
 // setting up routes
 app.use("/", require("./routes/index"));
