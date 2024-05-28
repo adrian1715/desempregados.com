@@ -38,5 +38,10 @@
     <!-- </main> -->
     <%- include('../partials/footer') %>
     <script src="/bootstrap/bootstrap.bundle.js"></script>
+
+    <!-- dynamically rendering javascripts -->
+    <% if(typeof scripts !== 'undefined') { for (let script of scripts) { %>
+    <script src="<%= script %>"></script>
+    <% } } %>
   </body>
 </html>
