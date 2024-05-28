@@ -13,9 +13,10 @@ const offerSchema = new Schema(
     },
     company: {
       type: Schema.Types.ObjectId,
-      ref: "User",
+      ref: "Company",
+      required: true,
     },
-    candidates: [{ type: Schema.Types.ObjectId, ref: "User" }],
+    candidates: [{ type: Schema.Types.ObjectId, ref: "Candidate" }],
   },
   { timestamps: true }
 );
