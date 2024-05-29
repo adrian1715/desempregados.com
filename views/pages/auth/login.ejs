@@ -26,13 +26,18 @@
   </head>
 
   <body>
-    <main class="container d-flex justify-content-center">
-      <form
-        id="form-container"
-        action=""
-        method="POST"
-        class="bg-light border rounded px-4 pt-2 pb-4 h-auto login-form"
+    <div id="desempregados-logo" class="pt-4 ps-sm-5">
+      <a class="navbar-brand" href="/"
+        ><img
+          src="/img/carteira-trabalho.png"
+          alt="carteira de trabalho"
+          class="img-fluid me-1"
+          style="max-height: 1rem"
+        />desempregados.com</a
       >
+    </div>
+    <main class="container d-flex justify-content-center">
+      <form id="form-container" action="" method="POST" class="login-form">
         <h1 class="mb-3">Login</h1>
         <div class="input-group">
           <div class="input-group-text">
@@ -84,7 +89,7 @@
           <!-- <a href="" class="ms-auto text-decoration-none">Esqueci a senha</a> -->
         </div>
         <div class="d-grid gap-2 my-3">
-          <button type="submit" class="btn btn-outline-dark">Login</button>
+          <button type="submit" class="btn btn-dark">Login</button>
         </div>
         <span>Não possui uma conta?</span
         ><a href="/register" class="text-decoration-none ms-1">Cadastre-se!</a>

@@ -4,8 +4,12 @@ body {
   /* height: 100vh ; */
 }
 
+#desempregados-logo {
+  height: 10vh;
+}
+
 main {
-  height: 100vh !important;
+  height: 90vh !important;
   padding-top: 15vh;
   /* padding: 15vh 0 40vh 0 !important; */
 }
