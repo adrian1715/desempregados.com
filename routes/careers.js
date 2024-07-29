@@ -1,13 +1,19 @@
 const express = require("express");
 const router = express.Router();
 
+const Career = require("../models/Career");
+
 // Middleware to add styles variable to response locals
 router.use((req, res, next) => {
   res.locals.styles = ["/css/career.css"];
   next();
 });
 
-router.get("/", (req, res) => res.render("careers/index"));
+router.get("/", async (req, res) => {
+  const careers = await Career.find();
+  console.log(careers);
+  res.render("careers/index");
+});
 
 router.get("/medicos", (req, res) => res.render("careers/medicos"));
 

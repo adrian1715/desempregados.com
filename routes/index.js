@@ -4,6 +4,11 @@ const router = express.Router();
 const path = require("path");
 const CustomError = require("../utils/CustomError");
 
+// API
+router.use("/api", require("./api/index.js"));
+
+// PAGES
+
 router.get("/", (req, res) => {
   res.render("index", {
     title: "Homepage - desempregados.com",
