@@ -1,41 +1,43 @@
 const mongoose = require("mongoose");
 const { Schema } = mongoose;
 
-const userSchema = new Schema(
+const candidateSchema = new Schema(
   {
     CPF: {
       type: String,
       required: true,
       match: /^\d{3}\.?\d{3}\.?\d{3}-?\d{2}$/, // regex validation
+      unique: true,
     },
     name: {
       type: String,
       required: true,
-    },
-    email: {
-      type: String,
-      required: true,
-      match: /^[a-z0-9.]+@[a-z0-9]+\.[a-z]+\.([a-z]+)?$/i,
     },
     phone: {
       type: String,
       required: true,
       match: /^\(?\d{2}\)?\s?\d{4,5}-?\d{4}$/,
     },
-    password: {
+    email: {
       type: String,
       required: true,
+      match: /^[a-z0-9.]+@[a-z0-9]+\.[a-z]+\.([a-z]+)?$/i,
     },
-    registeredOffers: [
+    // password: {
+    //   type: String,
+    //   required: true,
+    // },
+    // cv: { },
+    appliedJobs: [
       {
         type: Schema.Types.ObjectId,
-        ref: "Offer",
+        ref: "Job",
       },
     ],
   },
   { timestamps: true }
 );
 
-const User = mongoose.model("User", userSchema);
+const Candidate = mongoose.model("Candidate", candidateSchema);
 
-module.exports = User;
+module.exports = Candidate;

@@ -6,9 +6,9 @@ const careerSchema = new Schema({
     type: String,
     required: true,
   },
-  offers: [{ type: Schema.Types.ObjectId, ref: "Offer" }],
+  jobs: [{ type: Schema.Types.ObjectId, ref: "Job" }],
 });
 
 const Career = model("Career", careerSchema);
 
-model.exports = Career;
+module.exports = Career;
