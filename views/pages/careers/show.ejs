@@ -1,0 +1,82 @@
+<%- layout("../layouts/boilerplate") %>
+
+<main class="container py-5">
+  <header class="article-header">
+    <h1><%= careerPage.header.title %></h1>
+    <p class="text-muted"><%= careerPage.header.subtitle %></p>
+    <img src="<%= careerPage.header.image.url %>" alt="" />
+    <p class="img-subtitle"><%= careerPage.header.image.subtitle %></p>
+  </header>
+  <article class="article-body">
+    <section>
+      <h2>Introdução</h2>
+      <p><%= careerPage.introduction.text %></p>
+    </section>
+    <section>
+      <h2>Educação e Habilidades</h2>
+      <div class="row">
+        <div class="col-lg-6 col-xl-8">
+          <p><%= careerPage.educationAndSkills.description %></p>
+          <ul>
+            <% for (let point of careerPage.educationAndSkills.points) { %>
+            <li><strong><%= point.title %>:</strong> <%= point.text %></li>
+            <% } %>
+          </ul>
+        </div>
+        <div class="col-lg-6 col-xl-4 d-flex flex-column">
+          <img
+            class="m-0 img-fluid"
+            src="<%= careerPage.educationAndSkills.image.url %>"
+            alt=""
+          />
+          <p class="img-subtitle m-0 mw-100">
+            <%= careerPage.educationAndSkills.image.subtitle %>
+          </p>
+        </div>
+      </div>
+    </section>
+    <section>
+      <h2>Oportunidades de Carreira</h2>
+      <% for (let text of careerPage.careerOpportunities.text) { %>
+      <p><%= text %></p>
+      <% } %>
+    </section>
+    <section>
+      <h2>Tendências Futuras</h2>
+      <% for (let text of careerPage.futureTendencies.text) { %>
+      <p><%= text %></p>
+      <% } %>
+    </section>
+    <section>
+      <h2>Desafios e Recompensas</h2>
+      <% for (let text of careerPage.challengesAndRewards.text) { %>
+      <p><%= text %></p>
+      <% } %>
+      <div class="d-flex flex-column align-items-center">
+        <img
+          class="col-lg-6"
+          src="<%= careerPage.challengesAndRewards.image.url %>"
+          alt=""
+        />
+        <p class="img-subtitle col-lg-6">
+          <%= careerPage.challengesAndRewards.image.subtitle %>
+        </p>
+      </div>
+    </section>
+    <section>
+      <h2>Conclusão</h2>
+      <p><%= careerPage.conclusion.text %></p>
+    </section>
+    <div class="text-center">
+      <a href="/" class="btn btn-primary me-2"
+        ><i class="bi bi-house me-2"></i>Início</a
+      >
+      <a href="/carreiras" class="btn btn-dark"
+        ><i class="bi bi-suitcase-lg me-2"></i>Carreiras</a
+      >
+      <a href="#" class="btn btn-success ms-2"
+        ><i class="bi bi-pencil me-2"></i>Editar*</a
+      >
+    </div>
+  </article>
+</main>

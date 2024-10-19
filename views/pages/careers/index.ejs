@@ -63,12 +63,15 @@
   </div>
 </div> -->
 
-    <% for(let career of careers) { if(career !== 'index') { %>
+    <% for(let i = 0; i <= 10 && i < careers.length; i++) { if(careers[i] !==
+    'index') { %>
     <li>
-      <a href="/carreiras/<%= career %>"
-        ><%= career[0].toUpperCase() + career.substring(1) %></a
-      >
+      <a href="/carreiras/<%= careers[i].name.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase() %>"><%= careers[i].name %></a>
     </li>
     <% } } %>
   </ul>
+
+  <div>
+      <a href="#"><button class="btn btn-sm btn-primary">Adicionar*</button></a>
+    </div>
 </main>

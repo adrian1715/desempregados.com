@@ -1,7 +1,9 @@
 const express = require("express");
 const router = express.Router();
+const catchAsync = require("express-async-handler");
 
 const Career = require("../models/Career");
+const CareerPage = require("../models/CareerPage");
 
 // Middleware to add styles variable to response locals
 router.use((req, res, next) => {
@@ -12,21 +14,40 @@ router.use((req, res, next) => {
 router.get("/", async (req, res) => {
   const careers = await Career.find();
   console.log(careers);
-  res.render("careers/index");
+  res.render("careers/index", { careers });
 });
 
-router.get("/medicos", (req, res) => res.render("careers/medicos"));
+router.get(
+  "/:career",
+  catchAsync(async (req, res) => {
+    const careerParam = req.params.career;
+    const normalizedCareerParam = careerParam
+      .normalize("NFD")
+      .replace(/[\u0300-\u036f]/g, "")
+      .toLowerCase();
 
-router.get("/engenheiros", (req, res) => res.render("careers/engenheiros"));
+    // Fetch all careers from the database
+    const careers = await Career.find();
 
-router.get("/cozinheiros", (req, res) => res.render("careers/cozinheiros"));
+    // Find the matching career using normalized comparison
+    const careerObj = careers.find(
+      (career) =>
+        career.name
+          .normalize("NFD")
+          .replace(/[\u0300-\u036f]/g, "")
+          .toLowerCase() === normalizedCareerParam
+    );
 
-router.get("/jogadores", (req, res) => res.render("careers/jogadores"));
+    if (!careerObj) throw Error("Could not find page!");
 
-router.get("/advogados", (req, res) => res.render("careers/advogados"));
+    const careerPage = await CareerPage.findOne({
+      career: careerObj._id,
+    });
 
-router.get("/programadores", (req, res) => res.render("careers/programadores"));
+    if (!careerPage) throw Error("Could not find page!");
 
-router.get("/professores", (req, res) => res.render("careers/professores"));
+    res.render("careers/show", { careerPage });
+  })
+);
 
 module.exports = router;
