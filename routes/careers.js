@@ -5,18 +5,28 @@ const catchAsync = require("express-async-handler");
 const Career = require("../models/Career");
 const CareerPage = require("../models/CareerPage");
 
-// Middleware to add styles variable to response locals
-router.use((req, res, next) => {
-  res.locals.styles = ["/css/career.css"];
-  next();
-});
+// // Middleware to add styles variable to response locals
+// router.use((req, res, next) => {
+//   res.locals.styles = ["/css/careers/show.css"];
+//   next();
+// });
 
+// careers homepage
 router.get("/", async (req, res) => {
   const careers = await Career.find();
   console.log(careers);
   res.render("careers/index", { careers });
 });
 
+// add new career page
+router.get("/adicionar", (req, res) =>
+  res.render("careers/new", {
+    styles: ["/css/careers/new.css"],
+    scripts: ["/js/careers/new.js"],
+  })
+);
+
+// show career page
 router.get(
   "/:career",
   catchAsync(async (req, res) => {
@@ -46,7 +56,10 @@ router.get(
 
     if (!careerPage) throw Error("Could not find page!");
 
-    res.render("careers/show", { careerPage });
+    res.render("careers/show", {
+      careerPage,
+      styles: ["/css/careers/show.css"],
+    });
   })
 );
 

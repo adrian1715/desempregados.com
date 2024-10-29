@@ -1,0 +1,226 @@
+<%- layout("../layouts/boilerplate") %>
+
+<main class="container py-5">
+  <h1 class="mb-3">Adicionar nova página de carreira</h1>
+  <form
+    action="/api/careerPages"
+    enctype="multipart/form-data"
+    method="POST"
+    class="mx-4"
+  >
+    <div id="header" class="mb-3">
+      <h2>Cabeçalho</h2>
+      <div class="input-group mx-3">
+        <label for="subtitle" class="input-group-text">Subtítulo</label>
+        <input required type="text" class="form-control" />
+      </div>
+    </div>
+    <div id="introduction" class="mb-3">
+      <h2>Introdução</h2>
+      <div class="input-group mx-3">
+        <label for="introduction-text" class="input-group-text">Texto</label>
+        <textarea
+          required
+          name="introduction"
+          id="introduction"
+          class="form-control"
+          rows="3"
+        ></textarea>
+      </div>
+    </div>
+    <div id="education-and-skills" class="mb-3">
+      <div class="mb-2">
+        <h2>Educação e Habilidades</h2>
+        <div class="input-group mx-3">
+          <label for="education-and-skills-text" class="input-group-text"
+            >Texto</label
+          >
+          <textarea
+            required
+            name="education-and-skills-text"
+            id="education-and-skills-text"
+            class="form-control"
+            rows="3"
+          ></textarea>
+        </div>
+      </div>
+      <div id="points" class="mx-3">
+        <div id="point-1" class="mb-2">
+          <h3>Ponto 1</h3>
+          <div class="mx-3">
+            <div class="input-group">
+              <label for="point-1" class="input-group-text">Título</label>
+              <input required type="text" class="form-control" />
+            </div>
+            <div class="input-group">
+              <label for="point-x-text" class="input-group-text">Texto</label>
+              <textarea
+                required
+                name="point-1-text"
+                id="point-1-text"
+                class="form-control"
+              ></textarea>
+            </div>
+          </div>
+        </div>
+        <div id="point-2" class="mb-2">
+          <h3>Ponto 2</h3>
+          <div class="mx-3">
+            <div class="input-group">
+              <label for="point-2" class="input-group-text">Título</label>
+              <input required type="text" class="form-control" />
+            </div>
+            <div class="input-group">
+              <label for="point-x-text" class="input-group-text">Texto</label>
+              <textarea
+                required
+                name="point-2-text"
+                id="point-2-text"
+                class="form-control"
+              ></textarea>
+            </div>
+          </div>
+        </div>
+        <div id="point-3" class="mb-2">
+          <h3>Ponto 3</h3>
+          <div class="mx-3">
+            <div class="input-group">
+              <label for="point-3" class="input-group-text">Título</label>
+              <input required type="text" class="form-control" />
+            </div>
+            <div class="input-group">
+              <label for="point-x-text" class="input-group-text">Texto</label>
+              <textarea
+                required
+                name="point-3-text"
+                id="point-3-text"
+                class="form-control"
+              ></textarea>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div id="career-opportunities" class="mb-3">
+      <h2>Oportunidades de Carreira</h2>
+      <div class="input-group mx-3">
+        <label for="career-opportunities-text" class="input-group-text"
+          >Texto</label
+        >
+        <textarea
+          required
+          name="career-opportunities-text"
+          id="career-opportunities-text"
+          class="form-control"
+        ></textarea>
+      </div>
+    </div>
+    <div id="future-tendencies" class="mb-3">
+      <h2>Tendências Futuras</h2>
+      <div class="input-group mx-3">
+        <label for="future-tendencies-text" class="input-group-text"
+          >Texto</label
+        ><textarea
+          required
+          name="future-tendencies-text"
+          id="future-tendencies-text"
+          rows="3"
+          class="form-control"
+        ></textarea>
+      </div>
+    </div>
+    <div id="challenges-and-rewards" class="mb-3">
+      <h2>Desafios e Recompensas</h2>
+      <div class="input-group mx-3">
+        <label for="challenges-and-rewards-text" class="input-group-text"
+          >Texto</label
+        >
+        <textarea
+          required
+          name="challanges-and-rewards-text"
+          id="challenges-and-rewards-text"
+          class="form-control"
+        ></textarea>
+      </div>
+    </div>
+    <div id="conclusion" class="mb-3">
+      <h2>Conclusão</h2>
+      <div class="input-group mx-3">
+        <label for="conclusion-text" class="input-group-text">Conclusão</label>
+        <textarea
+          required
+          name="conclusion-text"
+          id="conclusion-text"
+          class="form-control"
+        ></textarea>
+      </div>
+    </div>
+
+    <div id="images" class="mb-3">
+      <h2>Imagens</h2>
+      <div class="row mx-3">
+        <div id="img-1" class="card col-12 col-md-4 mb-2 mb-md-0">
+          <label class="image-label border rounded-top" for="image-input-1">
+            <i class="bi bi-plus-circle"></i>
+          </label>
+          <input
+            required
+            id="image-input-1"
+            name="image-input-1"
+            type="file"
+            accept="image/*"
+            class="image-input d-none"
+          />
+          <div class="card-header border rounded-bottom text-center">
+            Principal
+          </div>
+        </div>
+        <div id="img-2" class="card col-12 col-md-4 mb-2 mb-md-0">
+          <label class="image-label border rounded-top" for="image-input-2">
+            <i class="bi bi-plus-circle"></i>
+          </label>
+          <input
+            required
+            id="image-input-2"
+            name="image-input-2"
+            type="file"
+            accept="image/*"
+            class="image-input d-none"
+          />
+          <div class="card-header border rounded-bottom text-center">
+            Educação e Habilidades
+          </div>
+        </div>
+        <div id="img-3" class="card col-12 col-md-4 mb-2 mb-md-0">
+          <label class="image-label border rounded-top" for="image-input-3">
+            <i class="bi bi-plus-circle"></i>
+          </label>
+          <input
+            required
+            id="image-input-3"
+            name="image-input-3"
+            type="file"
+            accept="image/*"
+            class="image-input d-none"
+          />
+          <div class="card-header border rounded-bottom text-center">
+            Desafios e Recompensas
+          </div>
+        </div>
+      </div>
+    </div>
+    <button type="submit" class="btn btn-success ms-2 float-end">
+      <i class="bi bi-check2 me-2"></i>Salvar
+    </button>
+    <!-- <br /> -->
+  </form>
+
+  <div class="text-center">
+    <a href="/" class="btn btn-primary me-2"
+      ><i class="bi bi-house me-2"></i>Início</a
+    >
+    <a href="/carreiras" class="btn btn-dark"
+      ><i class="bi bi-suitcase-lg me-2"></i>Carreiras</a
+    >
+  </div>
+</main>
