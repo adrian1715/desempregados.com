@@ -14,4 +14,12 @@ const errorHandler = (err, req, res, next) => {
   res.status(500).render("../error", { error: err });
 };
 
-module.exports = { notFound, errorHandler };
+const multerErrorHandler = (err, req, res, next) => {
+  if (err instanceof multer.MulterError) {
+    console.error("Multer Error:", err.message);
+    return res.status(400).json({ error: err.message });
+  }
+  next(err);
+};
+
+module.exports = { notFound, errorHandler, multerErrorHandler };

@@ -4,6 +4,11 @@ const asyncHandler = require("express-async-handler");
 const CareerPage = require("../../models/CareerPage");
 const Career = require("../../models/Career");
 
+const multer = require("multer");
+const { storage } = require("../../config/cloudinary");
+const upload = multer({ storage }); // multer upload middleware (to handle multipart/form-data forms)
+// const upload = multer({ dest: "uploads/" }); // to temporarily store files on the "uploads" folder
+
 router.get("/", async (req, res) => {
   const pages = await CareerPage.find();
 
@@ -27,13 +32,21 @@ router.get(
 
 router.post(
   "/",
+  upload.fields([
+    { name: "image-input-1", maxCount: 1 },
+    { name: "image-input-2", maxCount: 1 },
+    { name: "image-input-3", maxCount: 1 },
+  ]),
   asyncHandler(async (req, res) => {
-    if (!req.body)
+    if (!req.body || !req.body)
       return res.status(400).json({ message: "Invalid page content." });
+
+    // console.log({ files: req.files, body: req.body });
+    // return res.send({ files: req.files, body: req.body });
 
     const career = await Career.findOne({ name: req.body.career });
 
-    if (!career) return res.status(400).json({ message: "Invalid career." });
+    if (!career) return res.status(400).json({ message: "Invalid career." }); // error needs to be properly handled here!
 
     const newPage = new CareerPage({ ...req.body, career: career._id });
     await newPage.save();
