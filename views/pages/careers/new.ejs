@@ -8,6 +8,19 @@
     method="POST"
     class="mx-4"
   >
+    <div id="career" class="mb-3">
+      <div class="d-flex align-items-center">
+        <h2 class="me-3">Carreira</h2>
+        <div class="input-group">
+          <select required name="career" id="career" class="form-select">
+            <option value="" hidden>Escolha uma opção...</option>
+            <% careers.forEach(career => { %>
+            <option value="<%= career.name %>"><%= career.name %></option>
+            <% }); %>
+          </select>
+        </div>
+      </div>
+    </div>
     <div id="header" class="mb-3">
       <h2>Cabeçalho</h2>
       <div class="input-group mx-3">
@@ -160,13 +173,13 @@
       <h2>Imagens</h2>
       <div class="row mx-3">
         <div id="img-1" class="card col-12 col-md-4 mb-2 mb-md-0">
-          <label class="image-label border rounded-top" for="image-input-1">
+          <label class="image-label border rounded-top" for="header-image">
             <i class="bi bi-plus-circle"></i>
           </label>
           <input
             required
-            id="image-input-1"
-            name="image-input-1"
+            id="header-image"
+            name="header-image"
             type="file"
             accept="image/*"
             class="image-input d-none"
@@ -176,13 +189,16 @@
           </div>
         </div>
         <div id="img-2" class="card col-12 col-md-4 mb-2 mb-md-0">
-          <label class="image-label border rounded-top" for="image-input-2">
+          <label
+            class="image-label border rounded-top"
+            for="education-and-skills-image"
+          >
             <i class="bi bi-plus-circle"></i>
           </label>
           <input
             required
-            id="image-input-2"
-            name="image-input-2"
+            id="education-and-skills-image"
+            name="education-and-skills-image"
             type="file"
             accept="image/*"
             class="image-input d-none"
@@ -192,13 +208,16 @@
           </div>
         </div>
         <div id="img-3" class="card col-12 col-md-4 mb-2 mb-md-0">
-          <label class="image-label border rounded-top" for="image-input-3">
+          <label
+            class="image-label border rounded-top"
+            for="challenges-and-rewards-image"
+          >
             <i class="bi bi-plus-circle"></i>
           </label>
           <input
             required
-            id="image-input-3"
-            name="image-input-3"
+            id="challenges-and-rewards-image"
+            name="challenges-and-rewards-image"
             type="file"
             accept="image/*"
             class="image-input d-none"

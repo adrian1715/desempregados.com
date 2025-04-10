@@ -19,12 +19,14 @@ router.get("/", async (req, res) => {
 });
 
 // add new career page
-router.get("/adicionar", (req, res) =>
+router.get("/adicionar", async (req, res) => {
+  const careers = await Career.find();
   res.render("careers/new", {
+    careers,
     styles: ["/css/careers/new.css"],
     scripts: ["/js/careers/new.js"],
-  })
-);
+  });
+});
 
 // show career page
 router.get(
