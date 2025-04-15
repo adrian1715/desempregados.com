@@ -1,5 +1,23 @@
 const mongoose = require("mongoose");
 
+// Create a separate schema for images to add the virtual property
+const ImageSchema = new mongoose.Schema({
+  url: {
+    type: String,
+    required: true,
+  },
+  filename: String,
+  subtitle: {
+    type: String,
+    required: true,
+  },
+});
+
+// Add the virtual property for thumbnails
+ImageSchema.virtual("thumbnail").get(function () {
+  return this.url.replace("/upload", "/upload/w_250");
+});
+
 const careerPageSchema = new mongoose.Schema({
   career: {
     type: mongoose.Schema.Types.ObjectId,
@@ -15,16 +33,7 @@ const careerPageSchema = new mongoose.Schema({
       type: String,
       required: true,
     },
-    image: {
-      url: {
-        type: String,
-        required: true,
-      },
-      subtitle: {
-        type: String,
-        required: true,
-      },
-    },
+    image: ImageSchema, // Use the ImageSchema instead of an embedded object
   },
   introduction: {
     text: {
@@ -33,9 +42,8 @@ const careerPageSchema = new mongoose.Schema({
     },
   },
   educationAndSkills: {
-    description: {
+    text: {
       type: String,
-      required: true,
     },
     points: [
       {
@@ -49,16 +57,7 @@ const careerPageSchema = new mongoose.Schema({
         },
       },
     ],
-    image: {
-      url: {
-        type: String,
-        required: true,
-      },
-      subtitle: {
-        type: String,
-        required: true,
-      },
-    },
+    image: ImageSchema, // Use the ImageSchema instead of an embedded object
   },
   careerOpportunities: {
     text: [
@@ -83,16 +82,7 @@ const careerPageSchema = new mongoose.Schema({
         required: true,
       },
     ],
-    image: {
-      url: {
-        type: String,
-        required: true,
-      },
-      subtitle: {
-        type: String,
-        required: true,
-      },
-    },
+    image: ImageSchema, // Use the ImageSchema instead of an embedded object
   },
   conclusion: {
     text: {
@@ -100,7 +90,6 @@ const careerPageSchema = new mongoose.Schema({
       required: true,
     },
   },
-
   createdAt: {
     type: Date,
     default: Date.now,
@@ -115,6 +104,10 @@ const careerPageSchema = new mongoose.Schema({
     },
   ],
 });
+
+// Add toJSON option to include virtuals when converting to JSON
+careerPageSchema.set("toJSON", { virtuals: true });
+careerPageSchema.set("toObject", { virtuals: true });
 
 // Pre-save middleware to update the `updatedAt` field
 careerPageSchema.pre("save", function (next) {

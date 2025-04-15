@@ -8,7 +8,7 @@
     method="POST"
     class="mx-4"
   >
-    <div id="career" class="mb-3">
+    <div id="career-option" class="mb-3">
       <div class="d-flex align-items-center">
         <h2 class="me-3">Carreira</h2>
         <div class="input-group">
@@ -24,17 +24,32 @@
     <div id="header" class="mb-3">
       <h2>Cabeçalho</h2>
       <div class="input-group mx-3">
+        <label for="title" class="input-group-text">Título</label>
+        <input
+          type="text"
+          class="form-control"
+          name="header[title]"
+          id="title"
+        />
+      </div>
+      <div class="input-group mx-3">
         <label for="subtitle" class="input-group-text">Subtítulo</label>
-        <input required type="text" class="form-control" />
+        <input
+          required
+          type="text"
+          class="form-control"
+          name="header[subtitle]"
+          id="subtitle"
+        />
       </div>
     </div>
     <div id="introduction" class="mb-3">
       <h2>Introdução</h2>
       <div class="input-group mx-3">
-        <label for="introduction-text" class="input-group-text">Texto</label>
+        <label for="introduction" class="input-group-text">Texto</label>
         <textarea
           required
-          name="introduction"
+          name="introduction[text]"
           id="introduction"
           class="form-control"
           rows="3"
@@ -46,11 +61,10 @@
         <h2>Educação e Habilidades</h2>
         <div class="input-group mx-3">
           <label for="education-and-skills-text" class="input-group-text"
-            >Texto</label
+            >Texto (not required)</label
           >
           <textarea
-            required
-            name="education-and-skills-text"
+            name="educationAndSkills[text]"
             id="education-and-skills-text"
             class="form-control"
             rows="3"
@@ -62,14 +76,20 @@
           <h3>Ponto 1</h3>
           <div class="mx-3">
             <div class="input-group">
-              <label for="point-1" class="input-group-text">Título</label>
-              <input required type="text" class="form-control" />
+              <label for="point-1-title" class="input-group-text">Título</label>
+              <input
+                required
+                type="text"
+                class="form-control"
+                name="educationAndSkills[points][0][title]"
+                id="point-1-title"
+              />
             </div>
             <div class="input-group">
-              <label for="point-x-text" class="input-group-text">Texto</label>
+              <label for="point-1-text" class="input-group-text">Texto</label>
               <textarea
                 required
-                name="point-1-text"
+                name="educationAndSkills[points][0][text]"
                 id="point-1-text"
                 class="form-control"
               ></textarea>
@@ -80,14 +100,20 @@
           <h3>Ponto 2</h3>
           <div class="mx-3">
             <div class="input-group">
-              <label for="point-2" class="input-group-text">Título</label>
-              <input required type="text" class="form-control" />
+              <label for="point-2-title" class="input-group-text">Título</label>
+              <input
+                required
+                type="text"
+                class="form-control"
+                name="educationAndSkills[points][1][title]"
+                id="point-2-title"
+              />
             </div>
             <div class="input-group">
-              <label for="point-x-text" class="input-group-text">Texto</label>
+              <label for="point-2-text" class="input-group-text">Texto</label>
               <textarea
                 required
-                name="point-2-text"
+                name="educationAndSkills[points][1][text]"
                 id="point-2-text"
                 class="form-control"
               ></textarea>
@@ -98,14 +124,20 @@
           <h3>Ponto 3</h3>
           <div class="mx-3">
             <div class="input-group">
-              <label for="point-3" class="input-group-text">Título</label>
-              <input required type="text" class="form-control" />
+              <label for="point-3-title" class="input-group-text">Título</label>
+              <input
+                required
+                type="text"
+                class="form-control"
+                name="educationAndSkills[points][2][title]"
+                id="point-3-title"
+              />
             </div>
             <div class="input-group">
-              <label for="point-x-text" class="input-group-text">Texto</label>
+              <label for="point-3-text" class="input-group-text">Texto</label>
               <textarea
                 required
-                name="point-3-text"
+                name="educationAndSkills[points][2][text]"
                 id="point-3-text"
                 class="form-control"
               ></textarea>
@@ -122,7 +154,7 @@
         >
         <textarea
           required
-          name="career-opportunities-text"
+          name="careerOpportunities[text]"
           id="career-opportunities-text"
           class="form-control"
         ></textarea>
@@ -135,7 +167,7 @@
           >Texto</label
         ><textarea
           required
-          name="future-tendencies-text"
+          name="futureTendencies[text]"
           id="future-tendencies-text"
           rows="3"
           class="form-control"
@@ -150,7 +182,7 @@
         >
         <textarea
           required
-          name="challanges-and-rewards-text"
+          name="challangesAndRewards[text]"
           id="challenges-and-rewards-text"
           class="form-control"
         ></textarea>
@@ -162,7 +194,7 @@
         <label for="conclusion-text" class="input-group-text">Conclusão</label>
         <textarea
           required
-          name="conclusion-text"
+          name="conclusion[text]"
           id="conclusion-text"
           class="form-control"
         ></textarea>
@@ -171,9 +203,13 @@
 
     <div id="images" class="mb-3">
       <h2>Imagens</h2>
+      <!-- add subtitle input fields! -->
       <div class="row mx-3">
         <div id="img-1" class="card col-12 col-md-4 mb-2 mb-md-0">
-          <label class="image-label border rounded-top" for="header-image">
+          <div class="card-header border rounded-top text-center">
+            Principal
+          </div>
+          <label class="image-label border" for="header-image">
             <i class="bi bi-plus-circle"></i>
           </label>
           <input
@@ -184,15 +220,19 @@
             accept="image/*"
             class="image-input d-none"
           />
-          <div class="card-header border rounded-bottom text-center">
-            Principal
-          </div>
+          <input
+            required
+            type="text"
+            class="form-control rounded-0 rounded-bottom"
+            name="header[image][subtitle]"
+            placeholder="Legenda"
+          />
         </div>
         <div id="img-2" class="card col-12 col-md-4 mb-2 mb-md-0">
-          <label
-            class="image-label border rounded-top"
-            for="education-and-skills-image"
-          >
+          <div class="card-header border rounded-top text-center">
+            Educação e Habilidades
+          </div>
+          <label class="image-label border" for="education-and-skills-image">
             <i class="bi bi-plus-circle"></i>
           </label>
           <input
@@ -203,15 +243,19 @@
             accept="image/*"
             class="image-input d-none"
           />
-          <div class="card-header border rounded-bottom text-center">
-            Educação e Habilidades
-          </div>
+          <input
+            required
+            type="text"
+            class="form-control rounded-0 rounded-bottom"
+            name="educationAndSkills[image][subtitle]"
+            placeholder="Legenda"
+          />
         </div>
         <div id="img-3" class="card col-12 col-md-4 mb-2 mb-md-0">
-          <label
-            class="image-label border rounded-top"
-            for="challenges-and-rewards-image"
-          >
+          <div class="card-header border rounded-top text-center">
+            Desafios e Recompensas
+          </div>
+          <label class="image-label border" for="challenges-and-rewards-image">
             <i class="bi bi-plus-circle"></i>
           </label>
           <input
@@ -222,9 +266,13 @@
             accept="image/*"
             class="image-input d-none"
           />
-          <div class="card-header border rounded-bottom text-center">
-            Desafios e Recompensas
-          </div>
+          <input
+            required
+            type="text"
+            class="form-control rounded-0 rounded-bottom"
+            name="challengesAndRewards[image][subtitle]"
+            placeholder="Legenda"
+          />
         </div>
       </div>
     </div>
