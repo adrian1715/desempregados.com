@@ -98,11 +98,8 @@ const careerPageSchema = new mongoose.Schema({
     type: Date,
     default: Date.now,
   },
-  tags: [
-    {
-      type: String,
-    },
-  ],
+  // add tags input to new career page template
+  tags: [String],
 });
 
 // Add toJSON option to include virtuals when converting to JSON
