@@ -6,8 +6,8 @@ const Career = require("../../models/Career");
 
 const multer = require("multer");
 const { storage } = require("../../config/cloudinary");
-// const upload = multer({ storage }); // multer upload middleware (to handle multipart/form-data forms)
-const upload = multer({ dest: "uploads/" }); // to temporarily store files on the "uploads" folder
+const upload = multer({ storage }); // multer upload middleware (to handle multipart/form-data forms)
+// const upload = multer({ dest: "uploads/" }); // to temporarily store files on the "uploads" folder
 
 router.get("/", async (req, res) => {
   const pages = await CareerPage.find();
@@ -30,7 +30,6 @@ router.get(
   })
 );
 
-// NOT WORKING
 router.post(
   "/",
   upload.fields([
@@ -85,7 +84,7 @@ router.post(
     await newPage.save();
 
     const careerPages = await CareerPage.find();
-    console.log({ newPage, careerPages });
+    console.log(newPage);
     // req.flash("success", "Página de carreira criada com sucesso!"); // add flash messages
     return res.redirect("/carreiras");
   })
@@ -115,8 +114,8 @@ router.delete(
   "/:id",
   asyncHandler(async (req, res) => {
     const { id } = req.params;
-
     const deletedPage = await CareerPage.findByIdAndDelete(id);
+
     if (!deletedPage)
       return res.status(500).json({ message: "Could not delete page." });
 

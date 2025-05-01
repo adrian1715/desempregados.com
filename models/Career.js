@@ -7,6 +7,7 @@ const careerSchema = new Schema({
     required: true,
   },
   jobs: [{ type: Schema.Types.ObjectId, ref: "Job" }],
+  pages: [{ type: Schema.Types.ObjectId, ref: "CareerPage" }],
 });
 
 const Career = model("Career", careerSchema);

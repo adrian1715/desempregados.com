@@ -112,6 +112,49 @@ careerPageSchema.pre("save", function (next) {
   next();
 });
 
+// Post-save middleware to update the parent Career
+careerPageSchema.post("save", async function (doc) {
+  try {
+    // Find the parent Career
+    const career = await mongoose.model("Career").findById(doc.career);
+
+    if (career) {
+      // Check if this page is already in the career's pages array
+      const pageExists = career.pages.some(
+        (pageId) => pageId.toString() === doc._id.toString()
+      );
+
+      // If not, add it and save
+      if (!pageExists) {
+        career.pages.push(doc._id);
+        await career.save();
+      }
+    }
+  } catch (error) {
+    console.error("Error updating parent Career:", error);
+  }
+});
+
+// Pre-remove middleware to update the parent Career when a CareerPage is deleted
+careerPageSchema.pre("findOneAndDelete", async function () {
+  const docToDelete = await this.model.findOne(this.getFilter());
+  if (docToDelete) {
+    try {
+      const career = await mongoose
+        .model("Career")
+        .findById(docToDelete.career);
+      if (career) {
+        career.pages = career.pages.filter(
+          (pageId) => pageId.toString() !== docToDelete._id.toString()
+        );
+        await career.save();
+      }
+    } catch (error) {
+      console.error("Error removing page from career: ", error);
+    }
+  }
+});
+
 const CareerPage = mongoose.model("CareerPage", careerPageSchema);
 
 module.exports = CareerPage;

@@ -14,7 +14,6 @@ const CareerPage = require("../models/CareerPage");
 // careers homepage
 router.get("/", async (req, res) => {
   const careers = await Career.find();
-  console.log(careers);
   res.render("careers/index", { careers });
 });
 
@@ -51,12 +50,42 @@ router.get(
     );
 
     if (!careerObj) throw Error("Could not find page!");
-
-    const careerPage = await CareerPage.findOne({
+    const careerPages = await CareerPage.find({
       career: careerObj._id,
     });
 
-    if (!careerPage) throw Error("Could not find page!");
+    // to show the career pages menu where there's more than one page
+    if (careerPages.length > 1) {
+      console.log(careerObj, careerPages);
+      return res.render("careers/pages", {
+        currentPath: req.path,
+        career: careerObj,
+        careerPages,
+      });
+    }
+
+    if (!careerPages) throw Error("Could not find page!");
+
+    console.log({ careerPage: careerPages[0], length: careerPages.length });
+
+    // rendering the career main page when it's the only one that exists
+    res.render("careers/show", {
+      careerPage: careerPages[0],
+      styles: ["/css/careers/show.css"],
+    });
+  })
+);
+
+// show specific career page (when there's more than one page for that career)
+router.get(
+  "/:career/:id",
+  catchAsync(async (req, res) => {
+    const careerPage = await CareerPage.findById(req.params.id);
+
+    // not being triggered
+    if (!careerPage)
+      // throw Error("Could not find page.");
+      return res.status(404).json({ message: "Could not find page." });
 
     res.render("careers/show", {
       careerPage,

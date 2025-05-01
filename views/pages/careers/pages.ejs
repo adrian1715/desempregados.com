@@ -1,0 +1,23 @@
+<%- layout("../layouts/boilerplate") %>
+
+<main class="container py-5">
+  <h1><%= career.name %></h1>
+  <ul>
+    <% careerPages.forEach(page => { %>
+    <li>
+      <a href="/carreiras<%= currentPath %>/<%= page._id %>"
+        ><%= page.header.title %></a
+      >
+    </li>
+    <% }) %>
+  </ul>
+
+  <div>
+    <a href="/" class="btn btn-primary me-2"
+      ><i class="bi bi-house me-2"></i>Início</a
+    >
+    <a href="/carreiras" class="btn btn-dark"
+      ><i class="bi bi-suitcase-lg me-2"></i>Carreiras</a
+    >
+  </div>
+</main>
