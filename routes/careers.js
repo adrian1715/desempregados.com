@@ -11,23 +11,53 @@ const CareerPage = require("../models/CareerPage");
 //   next();
 // });
 
-// careers homepage
+// CAREERS HOMEPAGE
 router.get("/", async (req, res) => {
   const careers = await Career.find();
   res.render("careers/index", { careers });
 });
 
-// add new career page
-router.get("/adicionar", async (req, res) => {
-  const careers = await Career.find();
-  res.render("careers/new", {
-    careers,
-    styles: ["/css/careers/new.css"],
-    scripts: ["/js/careers/new.js"],
-  });
-});
+// ADD NEW CAREER PAGE
+router.get(
+  "/adicionar",
+  catchAsync(async (req, res) => {
+    const careers = await Career.find();
+    const previousPage = req.headers.referer; // get the previous page URL
+    let formattedCareer = null;
 
-// show career page
+    if (previousPage) {
+      const urlParts = previousPage.split("/");
+      const lastPart = urlParts.slice(-1)[0];
+      const penultimatePart = urlParts.slice(-2)[0];
+      const lastPartIsId = /^[0-9a-fA-F]{24}$/.test(lastPart);
+
+      const career = lastPartIsId ? penultimatePart : lastPart;
+      const careerObj = careers.find(
+        (c) =>
+          c.name
+            .normalize("NFD")
+            .replace(/[\u0300-\u036f]/g, "")
+            .toLowerCase() ===
+          career
+            .normalize("NFD")
+            .replace(/[\u0300-\u036f]/g, "")
+            .toLowerCase()
+      );
+      formattedCareer = careerObj ? careerObj.name : career;
+    }
+
+    console.log(formattedCareer);
+
+    res.render("careers/new", {
+      careers,
+      formattedCareer,
+      styles: ["/css/careers/new.css"],
+      scripts: ["/js/careers/new.js"],
+    });
+  })
+);
+
+// SHOW CAREER PAGE
 router.get(
   "/:career",
   catchAsync(async (req, res) => {
@@ -56,7 +86,6 @@ router.get(
 
     // to show the career pages menu where there's more than one page
     if (careerPages.length > 1) {
-      console.log(careerObj, careerPages);
       return res.render("careers/pages", {
         currentPath: req.path,
         career: careerObj,
@@ -66,8 +95,6 @@ router.get(
 
     if (!careerPages) throw Error("Could not find page!");
 
-    console.log({ careerPage: careerPages[0], length: careerPages.length });
-
     // rendering the career main page when it's the only one that exists
     res.render("careers/show", {
       careerPage: careerPages[0],
@@ -76,7 +103,7 @@ router.get(
   })
 );
 
-// show specific career page (when there's more than one page for that career)
+// SHOW SPECIFIC CAREER PAGE (when there's more than one page for that career)
 router.get(
   "/:career/:id",
   catchAsync(async (req, res) => {

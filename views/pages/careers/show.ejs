@@ -68,14 +68,18 @@
       <p><%= careerPage.conclusion.text %></p>
     </section>
     <div class="text-center">
-      <a href="/" class="btn btn-primary me-2"
+      <a href="/" class="btn btn-sm btn-primary me-2"
         ><i class="bi bi-house me-2"></i>Início</a
       >
-      <a href="/carreiras" class="btn btn-dark"
+      <a href="/carreiras" class="btn btn-sm btn-dark"
         ><i class="bi bi-suitcase-lg me-2"></i>Carreiras</a
       >
-      <a href="#" class="btn btn-success ms-2"
+      <!-- make visible only to admin -->
+      <a href="#" class="btn btn-sm btn-warning ms-2"
         ><i class="bi bi-pencil me-2"></i>Editar*</a
+      >
+      <a href="/carreiras/adicionar" class="btn btn-sm btn-success ms-2"
+        ><i class="bi bi-plus-circle me-2"></i>Nova página*</a
       >
     </div>
   </article>

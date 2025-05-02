@@ -15,7 +15,7 @@
           <select required name="career" id="career" class="form-select">
             <option value="" hidden>Escolha uma opção...</option>
             <% careers.forEach(career => { %>
-            <option value="<%= career.name %>"><%= career.name %></option>
+            <option <%= career.name === formattedCareer ? "selected" : "" %> value="<%= career.name %>"><%= career.name %></option>
             <% }); %>
           </select>
         </div>
