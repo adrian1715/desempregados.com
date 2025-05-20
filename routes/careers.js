@@ -46,8 +46,6 @@ router.get(
       formattedCareer = careerObj ? careerObj.name : career;
     }
 
-    console.log(formattedCareer);
-
     res.render("careers/new", {
       careers,
       formattedCareer,
@@ -80,6 +78,7 @@ router.get(
     );
 
     if (!careerObj) throw Error("Could not find page!");
+
     const careerPages = await CareerPage.find({
       career: careerObj._id,
     });
@@ -97,8 +96,47 @@ router.get(
 
     // rendering the career main page when it's the only one that exists
     res.render("careers/show", {
+      currentUrl: req.originalUrl,
       careerPage: careerPages[0],
       styles: ["/css/careers/show.css"],
+    });
+  })
+);
+
+// EDIT CAREER PAGE - when there's just one careerer page for that career
+router.get(
+  "/:career/editar",
+  catchAsync(async (req, res) => {
+    const careers = await Career.find();
+
+    const careerParam = req.params.career;
+    const normalizedCareerParam = careerParam
+      .normalize("NFD")
+      .replace(/[\u0300-\u036f]/g, "")
+      .toLowerCase();
+
+    // Find the matching career using normalized comparison
+    const careerObj = careers.find(
+      (career) =>
+        career.name
+          .normalize("NFD")
+          .replace(/[\u0300-\u036f]/g, "")
+          .toLowerCase() === normalizedCareerParam
+    );
+
+    const careerPage = await CareerPage.findOne({
+      career: careerObj._id,
+    }).populate("career");
+
+    console.log(careerPage);
+
+    if (!careerPage) throw Error("Could not find page.");
+
+    res.render("careers/edit", {
+      careers,
+      careerPage,
+      styles: ["/css/careers/new.css"],
+      scripts: ["/js/careers/new.js"],
     });
   })
 );
@@ -109,14 +147,35 @@ router.get(
   catchAsync(async (req, res) => {
     const careerPage = await CareerPage.findById(req.params.id);
 
-    // not being triggered
-    if (!careerPage)
-      // throw Error("Could not find page.");
-      return res.status(404).json({ message: "Could not find page." });
+    if (!careerPage) throw Error("Could not find page.");
+    // return res.status(404).json({ message: "Could not find page." });
 
     res.render("careers/show", {
+      currentUrl: req.originalUrl,
       careerPage,
       styles: ["/css/careers/show.css"],
+    });
+  })
+);
+
+// EDIT SPECIFIC CAREER PAGE
+router.get(
+  "/:career/:id/editar",
+  catchAsync(async (req, res) => {
+    const careers = await Career.find();
+    const careerPage = await CareerPage.findById(req.params.id).populate(
+      "career"
+    );
+
+    if (!careerPage) throw Error("Could not find page.");
+
+    console.log(careerPage);
+
+    res.render("careers/edit", {
+      careers,
+      careerPage,
+      styles: ["/css/careers/new.css"],
+      scripts: ["/js/careers/new.js"],
     });
   })
 );

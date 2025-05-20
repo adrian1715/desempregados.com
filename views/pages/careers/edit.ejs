@@ -1,11 +1,11 @@
 <%- layout("../layouts/boilerplate") %>
 
 <main class="container py-5">
-  <h1 class="mb-3">Adicionar nova página de carreira</h1>
+  <h1 class="mb-3">Editar página de carreira</h1>
   <form
-    action="/api/careerPages"
-    enctype="multipart/form-data"
+    action="/api/careerPages/<%= careerPage._id %>?_method=PUT"
     method="POST"
+    enctype="multipart/form-data"
     class="mx-4"
   >
     <div id="career-option" class="mb-3">
@@ -17,7 +17,7 @@
             <% careers.forEach(career => { %>
             <option
               value="<%= career.name %>"
-              <%= career.name === formattedCareer ? "selected" : "" %>
+              <%= career.name === careerPage.career.name ? 'selected' : '' %>
             >
               <%= career.name %>
             </option>
@@ -35,6 +35,7 @@
           class="form-control"
           name="header[title]"
           id="title"
+          value="<%= careerPage.header.title %>"
         />
       </div>
       <div class="input-group mx-3">
@@ -45,6 +46,7 @@
           class="form-control"
           name="header[subtitle]"
           id="subtitle"
+          value="<%= careerPage.header.subtitle %>"
         />
       </div>
     </div>
@@ -58,7 +60,8 @@
           id="introduction"
           class="form-control"
           rows="3"
-        ></textarea>
+        ><%= careerPage.introduction.text %></textarea
+        >
       </div>
     </div>
     <div id="education-and-skills" class="mb-3">
@@ -73,7 +76,8 @@
             id="education-and-skills-text"
             class="form-control"
             rows="3"
-          ></textarea>
+          ><%= careerPage.educationAndSkills.text %></textarea
+          >
         </div>
       </div>
       <div id="points" class="mx-3">
@@ -88,6 +92,7 @@
                 class="form-control"
                 name="educationAndSkills[points][0][title]"
                 id="point-1-title"
+                value="<%= careerPage.educationAndSkills.points[0].title %>"
               />
             </div>
             <div class="input-group">
@@ -97,7 +102,8 @@
                 name="educationAndSkills[points][0][text]"
                 id="point-1-text"
                 class="form-control"
-              ></textarea>
+              ><%= careerPage.educationAndSkills.points[0].text %></textarea
+              >
             </div>
           </div>
         </div>
@@ -112,6 +118,7 @@
                 class="form-control"
                 name="educationAndSkills[points][1][title]"
                 id="point-2-title"
+                value="<%= careerPage.educationAndSkills.points[1]?.title %>"
               />
             </div>
             <div class="input-group">
@@ -121,7 +128,8 @@
                 name="educationAndSkills[points][1][text]"
                 id="point-2-text"
                 class="form-control"
-              ></textarea>
+              ><%= careerPage.educationAndSkills.points[1]?.text %></textarea
+              >
             </div>
           </div>
         </div>
@@ -136,6 +144,7 @@
                 class="form-control"
                 name="educationAndSkills[points][2][title]"
                 id="point-3-title"
+                value="<%= careerPage.educationAndSkills.points[2]?.title %>"
               />
             </div>
             <div class="input-group">
@@ -145,7 +154,8 @@
                 name="educationAndSkills[points][2][text]"
                 id="point-3-text"
                 class="form-control"
-              ></textarea>
+              ><%= careerPage.educationAndSkills.points[1]?.text %></textarea
+              >
             </div>
           </div>
         </div>
@@ -162,7 +172,8 @@
           name="careerOpportunities[text]"
           id="career-opportunities-text"
           class="form-control"
-        ></textarea>
+        ><%= careerPage.careerOpportunities.text %></textarea
+        >
       </div>
     </div>
     <div id="future-tendencies" class="mb-3">
@@ -176,7 +187,8 @@
           id="future-tendencies-text"
           rows="3"
           class="form-control"
-        ></textarea>
+        ><%= careerPage.futureTendencies.text %></textarea
+        >
       </div>
     </div>
     <div id="challenges-and-rewards" class="mb-3">
@@ -190,7 +202,8 @@
           name="challengesAndRewards[text]"
           id="challenges-and-rewards-text"
           class="form-control"
-        ></textarea>
+        ><%= careerPage.challengesAndRewards.text %></textarea
+        >
       </div>
     </div>
     <div id="conclusion" class="mb-3">
@@ -202,13 +215,19 @@
           name="conclusion[text]"
           id="conclusion-text"
           class="form-control"
-        ></textarea>
+        ><%= careerPage.conclusion.text %></textarea
+        >
       </div>
     </div>
     <div id="tags" class="mb-3">
       <h2 class="mb-3">Tags</h2>
       <div id="added-tags-div" class="mb-3">
-        <!-- <input id="added-tags" type="hidden" name="tags" /> -->
+        <% if(careerPage.tags.length > 0) { careerPage.tags.forEach(tag => { %>
+        <button class="btn btn-sm btn-outline-dark me-2" type="button">
+          <%= tag %><i class="bi bi-x ms-1"></i>
+        </button>
+        <input type="hidden" name="tags[]" value="<%= tag %>" />
+        <% }) } %>
       </div>
       <button type="button" id="add-tag-btn" class="btn btn-primary btn-sm">
         Adicionar
@@ -236,11 +255,14 @@
           <div class="card-header border rounded-top text-center">
             Principal
           </div>
-          <label class="image-label border" for="header-image">
-            <i class="bi bi-plus-circle"></i>
+          <label
+            class="image-label border"
+            for="header-image"
+            style="background-image: url('<%= careerPage.header.image.url %>')"
+          >
           </label>
           <input
-            required
+            
             id="header-image"
             name="header-image"
             type="file"
@@ -253,17 +275,23 @@
             class="form-control rounded-0 rounded-bottom"
             name="header[image][subtitle]"
             placeholder="Legenda"
+            value="<%= careerPage.header.image.subtitle %>"
           />
         </div>
         <div id="img-2" class="card col-12 col-md-4 mb-2 mb-md-0">
           <div class="card-header border rounded-top text-center">
             Educação e Habilidades
           </div>
-          <label class="image-label border" for="education-and-skills-image">
-            <i class="bi bi-plus-circle"></i>
+          <label
+            class="image-label border"
+            for="education-and-skills-image"
+            style="
+              background-image: url('<%= careerPage.educationAndSkills.image.url %>');
+            "
+          >
           </label>
           <input
-            required
+            
             id="education-and-skills-image"
             name="education-and-skills-image"
             type="file"
@@ -276,17 +304,23 @@
             class="form-control rounded-0 rounded-bottom"
             name="educationAndSkills[image][subtitle]"
             placeholder="Legenda"
+            value="<%= careerPage.educationAndSkills.image.subtitle %>"
           />
         </div>
         <div id="img-3" class="card col-12 col-md-4 mb-2 mb-md-0">
           <div class="card-header border rounded-top text-center">
             Desafios e Recompensas
           </div>
-          <label class="image-label border" for="challenges-and-rewards-image">
-            <i class="bi bi-plus-circle"></i>
+          <label
+            class="image-label border"
+            for="challenges-and-rewards-image"
+            style="
+              background-image: url('<%= careerPage.challengesAndRewards.image.url %>');
+            "
+          >
           </label>
           <input
-            required
+            
             id="challenges-and-rewards-image"
             name="challenges-and-rewards-image"
             type="file"
@@ -299,18 +333,24 @@
             class="form-control rounded-0 rounded-bottom"
             name="challengesAndRewards[image][subtitle]"
             placeholder="Legenda"
+            value="<%= careerPage.challengesAndRewards.image.subtitle %>"
           />
         </div>
       </div>
     </div>
-    <button type="submit" class="btn btn-success ms-2 float-end">
+    <button type="submit" class="btn btn-success ms-2 float-end btn-sm">
       <i class="bi bi-check2 me-2"></i>Salvar
     </button>
   </form>
 
-  <div class="text-end">
-    <a href="/carreiras" class="btn btn-primary"
+  <div class="text-center">
+    <a href="/carreiras" class="btn btn-primary btn-sm"
       ><i class="bi bi-suitcase-lg me-2"></i>Carreiras</a
+    >
+    <a
+      href="/carreiras/<%= careerPage.career.name %>/<%= careerPage._id %>"
+      class="btn btn-secondary btn-sm"
+      ><i class="bi bi-file-earmark me-2"></i>Voltar à página</a
     >
   </div>
 </main>

@@ -56,6 +56,30 @@ confirmTagBtn.addEventListener("click", () => {
   addedTagsDiv.appendChild(hiddenInput);
 });
 
+// to delete tags whenever they are clicked (when editing form)
+Array.from(addedTagsDiv.children).forEach((tag) => {
+  const tagName = tag.innerText;
+  tag.addEventListener("click", (e) => {
+    e.preventDefault();
+
+    const hiddenInput = Array.from(
+      addedTagsDiv.getElementsByTagName("input")
+    ).find((input) => input.value === tagName);
+    if (hiddenInput) hiddenInput.remove();
+    tag.remove();
+  });
+});
+
+// to print tags whenever they change
+// const logTags = () => {
+//   const tags = Array.from(addedTagsDiv.getElementsByTagName("input"))
+//     .map((input) => input.value)
+//     .filter(Boolean);
+//   console.log("Current tags:", tags);
+// };
+// const observer = new MutationObserver(logTags);
+// observer.observe(addedTagsDiv, { childList: true, subtree: true });
+
 // Handle file selection and image preview
 fileInputs.forEach((fileInput, index) => {
   fileInput.addEventListener("change", (event) => {
