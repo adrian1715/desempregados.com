@@ -28,3 +28,7 @@ main img {
   /* display: block; */
   /* max-width: 50%; */
 }
+
+p {
+  white-space: pre-line;
+}
