@@ -80,10 +80,11 @@ router.post(
 
     await newPage.save();
 
-    const careerPages = await CareerPage.find();
     console.log(newPage);
     // req.flash("success", "Página de carreira criada com sucesso!"); // add flash messages
-    return res.redirect("/carreiras");
+    return res.redirect(
+      `/carreiras/${career.name.toLowerCase()}/${newPage._id}`
+    );
   })
 );
 

@@ -83,22 +83,21 @@ router.get(
       career: careerObj._id,
     });
 
-    // to show the career pages menu where there's more than one page
-    if (careerPages.length > 1) {
-      return res.render("careers/pages", {
-        currentPath: req.path,
-        career: careerObj,
-        careerPages,
+    // rendering the career main page when it's the only one that exists
+    if (careerPages.length === 1) {
+      res.render("careers/show", {
+        currentUrl: req.originalUrl,
+        careerPage: careerPages[0],
+        styles: ["/css/careers/show.css"],
       });
     }
 
     if (!careerPages) throw Error("Could not find page!");
 
-    // rendering the career main page when it's the only one that exists
-    res.render("careers/show", {
-      currentUrl: req.originalUrl,
-      careerPage: careerPages[0],
-      styles: ["/css/careers/show.css"],
+    return res.render("careers/pages", {
+      currentPath: req.path,
+      career: careerObj,
+      careerPages,
     });
   })
 );

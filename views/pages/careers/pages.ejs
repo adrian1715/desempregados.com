@@ -3,13 +3,19 @@
 <main class="container py-5">
   <h1><%= career.name %></h1>
   <ul>
-    <% careerPages.forEach(page => { %>
+    <% if(careerPages.length === 0) { %>
+    <li>
+      <p class="text-muted">
+        Não há páginas de carreiras disponíveis no momento.
+      </p>
+    </li>
+    <% } else { %> <% careerPages.forEach(page => { %>
     <li>
       <a href="/carreiras<%= currentPath %>/<%= page._id %>"
         ><%= page.header.title %></a
       >
     </li>
-    <% }) %>
+    <% }) } %>
   </ul>
 
   <div>

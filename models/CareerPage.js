@@ -60,28 +60,23 @@ const careerPageSchema = new mongoose.Schema({
     image: ImageSchema, // Use the ImageSchema instead of an embedded object
   },
   careerOpportunities: {
-    text: [
-      {
-        type: String,
-        required: true,
-      },
-    ],
+    text: {
+      type: String,
+      required: true,
+    },
   },
   futureTendencies: {
-    text: [
-      {
-        type: String,
-        required: true,
-      },
-    ],
+    text: {
+      type: String,
+      required: true,
+    },
   },
   challengesAndRewards: {
-    text: [
-      {
-        type: String,
-        required: true,
-      },
-    ],
+    text: {
+      type: String,
+      required: true,
+    },
+
     image: ImageSchema, // Use the ImageSchema instead of an embedded object
   },
   conclusion: {
