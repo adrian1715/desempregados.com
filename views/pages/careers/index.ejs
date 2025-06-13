@@ -10,13 +10,13 @@
       <h2><%= careers[i].name %></h2>
       <p><%= careers[i].pages[0].header.subtitle %></p>
       <a
-        href="<%= careers[i].pages.length > 1 ? `/carreiras/${careers[i].name.normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase()}/${careers[i].pages[0]._id.toString().normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase()}` : `/carreiras/${careers[i].name.normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase()}` %>"
+        href="<%= careers[i].pages.length > 1 ? `/carreiras/${formatCareerName(careers[i].name)}/${formatCareerName(careers[i].pages[0]._id)}` : `/carreiras/${formatCareerName(careers[i].name)}` %>"
         class="btn btn-sm btn-primary"
         >Ler mais</a
       >
       <% if (careers[i].pages.length > 1) { %>
       <a
-        href="/carreiras/<%= careers[i].name.normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase() %>"
+        href="/carreiras/<%= formatCareerName(careers[i].name) %>"
         class="btn btn-sm btn-secondary"
         >Todas as páginas</a
       >

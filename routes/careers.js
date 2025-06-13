@@ -2,6 +2,8 @@ const express = require("express");
 const router = express.Router();
 const catchAsync = require("express-async-handler");
 
+const { formatCareerName } = require("../utils/string");
+
 const Career = require("../models/Career");
 const CareerPage = require("../models/CareerPage");
 
@@ -14,7 +16,7 @@ const CareerPage = require("../models/CareerPage");
 // CAREERS HOMEPAGE
 router.get("/", async (req, res) => {
   const careers = await Career.find().populate("pages");
-  res.render("careers/index", { careers });
+  res.render("careers/index", { careers, formatCareerName });
 });
 
 // ADD NEW CAREER PAGE
