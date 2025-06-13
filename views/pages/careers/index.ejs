@@ -1,78 +1,43 @@
 <%- layout("../layouts/boilerplate") %>
 <main class="container py-5">
   <h1>Carreiras</h1>
-  <ul>
-    <!-- <div class="container">
-  <div class="row">
-    <div class="col-md-4">
-      <div class="career-card">
-        <h2>Doctor</h2>
-        <p>
-          Explore the journey and responsibilities of medical professionals.
-        </p>
-        <a href="/doctor.html" class="btn btn-primary">Read More</a>
-      </div>
-    </div>
-    <div class="col-md-4">
-      <div class="career-card">
-        <h2>Lawyer</h2>
-        <p>
-          Discover the career path and responsibilities of legal professionals.
-        </p>
-        <a href="/lawyer.html" class="btn btn-primary">Read More</a>
-      </div>
-    </div>
-    <div class="col-md-4">
-      <div class="career-card">
-        <h2>Engineer</h2>
-        <p>
-          Learn about the field of engineering and the diverse career opportunities it offers.
-        </p>
-        <a href="/engineer.html" class="btn btn-primary">Read More</a>
-      </div>
-    </div>
-  </div>
-  <div class="row">
-    <div class="col-md-4">
-      <div class="career-card">
-        <h2>Player</h2>
-        <p>
-          Explore the career of professional athletes and the challenges they face.
-        </p>
-        <a href="/player.html" class="btn btn-primary">Read More</a>
-      </div>
-    </div>
-    <div class="col-md-4">
-      <div class="career-card">
-        <h2>Programmer</h2>
-        <p>
-          Discover the world of coding and software development.
-        </p>
-        <a href="/programmer.html" class="btn btn-primary">Read More</a>
-      </div>
-    </div>
-    <div class="col-md-4">
-      <div class="career-card">
-        <h2>Chef</h2>
-        <p>
-          Delve into the culinary arts and the career of a chef.
-        </p>
-        <a href="/chef.html" class="btn btn-primary">Read More</a>
-      </div>
-    </div>
-  </div>
-</div> -->
 
+  <div class="container row mb-3">
     <% for(let i = 0; i <= 10 && i < careers.length; i++) { if(careers[i] !==
     'index') { %>
-    <li>
-      <a href="/carreiras/<%= careers[i].name.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase() %>"><%= careers[i].name %></a>
-    </li>
-    <% } } %>
-  </ul>
-  <a href="/carreiras/adicionar" class="btn btn-sm btn-success ms-2"
-    ><i class="bi bi-plus-circle me-2"></i>Nova página*</a
+
+    <div class="col-md-4 career-card mb-3">
+      <h2><%= careers[i].name %></h2>
+      <p><%= careers[i].pages[0].header.subtitle %></p>
+      <a
+        href="<%= careers[i].pages.length > 1 ? `/carreiras/${careers[i].name.normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase()}/${careers[i].pages[0]._id.toString().normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase()}` : `/carreiras/${careers[i].name.normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase()}` %>"
+        class="btn btn-sm btn-primary"
+        >Ler mais</a
+      >
+      <% if (careers[i].pages.length > 1) { %>
+      <a
+        href="/carreiras/<%= careers[i].name.normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase() %>"
+        class="btn btn-sm btn-secondary"
+        >Todas as páginas</a
+      >
+      <% } %>
+    </div>
+
+    <% if (i === 8) { %>
+    <div class="col-md-4">
+      <div class="career-card">
+        <h2>E muito mais!</h2>
+        <p>Confira todas as carreira disponíveis em nossa plataforma.</p>
+        <a href="/" class="btn btn-secondary">Ler mais</a>
+      </div>
+    </div>
+    <% } } } %>
+  </div>
+
+  <button class="btn btn-sm btn-success ms-2">
+    <i class="bi bi-patch-plus me-2"></i>Nova carreira*
+  </button>
+  <a href="/carreiras/adicionar" class="btn btn-sm btn-secondary ms-2"
+    ><i class="bi bi-file-earmark-plus me-2"></i>Nova página*</a
   >
-
-
 </main>

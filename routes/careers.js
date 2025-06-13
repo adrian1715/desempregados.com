@@ -13,7 +13,7 @@ const CareerPage = require("../models/CareerPage");
 
 // CAREERS HOMEPAGE
 router.get("/", async (req, res) => {
-  const careers = await Career.find();
+  const careers = await Career.find().populate("pages");
   res.render("careers/index", { careers });
 });
 
