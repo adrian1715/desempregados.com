@@ -1,8 +1,9 @@
 const express = require("express");
 const router = express.Router();
 const catchAsync = require("express-async-handler");
+const mongoose = require("mongoose");
 
-const { formatCareerName } = require("../utils/string");
+const { toUpperCaseInitial, formatCareerName } = require("../utils/string");
 
 const Career = require("../models/Career");
 const CareerPage = require("../models/CareerPage");
@@ -35,15 +36,7 @@ router.get(
 
       const career = lastPartIsId ? penultimatePart : lastPart;
       const careerObj = careers.find(
-        (c) =>
-          c.name
-            .normalize("NFD")
-            .replace(/[\u0300-\u036f]/g, "")
-            .toLowerCase() ===
-          career
-            .normalize("NFD")
-            .replace(/[\u0300-\u036f]/g, "")
-            .toLowerCase()
+        (c) => formatCareerName(c.name) === formatCareerName(career)
       );
       formattedCareer = careerObj ? careerObj.name : career;
     }
@@ -61,22 +54,13 @@ router.get(
 router.get(
   "/:career",
   catchAsync(async (req, res) => {
-    const careerParam = req.params.career;
-    const normalizedCareerParam = careerParam
-      .normalize("NFD")
-      .replace(/[\u0300-\u036f]/g, "")
-      .toLowerCase();
-
     // Fetch all careers from the database
     const careers = await Career.find();
 
     // Find the matching career using normalized comparison
     const careerObj = careers.find(
       (career) =>
-        career.name
-          .normalize("NFD")
-          .replace(/[\u0300-\u036f]/g, "")
-          .toLowerCase() === normalizedCareerParam
+        formatCareerName(career.name) === formatCareerName(req.params.career)
     );
 
     if (!careerObj) throw Error("Could not find page!");
@@ -89,6 +73,8 @@ router.get(
     if (careerPages.length === 1) {
       res.render("careers/show", {
         currentUrl: req.originalUrl,
+        careerName: careerObj.name.toLowerCase(),
+        careerPages,
         careerPage: careerPages[0],
         styles: ["/css/careers/show.css"],
       });
@@ -111,18 +97,11 @@ router.get(
     const careers = await Career.find();
 
     const careerParam = req.params.career;
-    const normalizedCareerParam = careerParam
-      .normalize("NFD")
-      .replace(/[\u0300-\u036f]/g, "")
-      .toLowerCase();
+    const normalizedCareerParam = formatCareerName(careerParam);
 
     // Find the matching career using normalized comparison
     const careerObj = careers.find(
-      (career) =>
-        career.name
-          .normalize("NFD")
-          .replace(/[\u0300-\u036f]/g, "")
-          .toLowerCase() === normalizedCareerParam
+      (career) => formatCareerName(career.name) === normalizedCareerParam
     );
 
     const careerPage = await CareerPage.findOne({
@@ -146,13 +125,20 @@ router.get(
 router.get(
   "/:career/:id",
   catchAsync(async (req, res) => {
+    const careerObj = await Career.find({
+      name: toUpperCaseInitial(formatCareerName(req.params.career)),
+    });
+
     const careerPage = await CareerPage.findById(req.params.id);
+    console.log(careerObj[0].pages);
 
     if (!careerPage) throw Error("Could not find page.");
     // return res.status(404).json({ message: "Could not find page." });
 
     res.render("careers/show", {
       currentUrl: req.originalUrl,
+      careerName: careerObj[0].name.toLowerCase(),
+      careerPages: careerObj[0].pages,
       careerPage,
       styles: ["/css/careers/show.css"],
     });
