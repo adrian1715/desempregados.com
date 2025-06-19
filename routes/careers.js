@@ -1,7 +1,6 @@
 const express = require("express");
 const router = express.Router();
 const catchAsync = require("express-async-handler");
-const mongoose = require("mongoose");
 
 const { toUpperCaseInitial, formatCareerName } = require("../utils/string");
 
@@ -111,20 +110,20 @@ router.get(
 router.get(
   "/:career/:id",
   catchAsync(async (req, res) => {
-    const careerObj = await Career.find({
-      name: toUpperCaseInitial(formatCareerName(req.params.career)),
-    });
-
+    const careers = await Career.find();
+    const careerObj = careers.find(
+      (career) =>
+        formatCareerName(career.name) === formatCareerName(req.params.career)
+    );
     const careerPage = await CareerPage.findById(req.params.id);
-    console.log(careerObj[0].pages);
 
     if (!careerPage) throw Error("Could not find page.");
     // return res.status(404).json({ message: "Could not find page." });
 
     res.render("careers/show", {
       currentUrl: req.originalUrl,
-      careerName: careerObj[0].name.toLowerCase(),
-      careerPages: careerObj[0].pages,
+      careerName: careerObj.name.toLowerCase(),
+      careerPages: careerObj.pages,
       careerPage,
       styles: ["/css/careers/show.css"],
     });
