@@ -12,14 +12,14 @@
       <div class="d-flex align-items-center">
         <h2 class="me-3">Carreira</h2>
         <div class="input-group">
-          <select required name="career" id="career" class="form-select">
-            <option value="" hidden>Escolha uma opção...</option>
-            <% careers.forEach(career => { %>
+          <select disabled required name="career" id="career" class="form-select">
+            <!-- <option value="" hidden>Escolha uma opção...</option> -->
+            <% careers.forEach(c => { %>
             <option
-              value="<%= career.name %>"
-              <%= career.name === formattedCareer ? "selected" : "" %>
+              value="<%= c.name %>"
+              <%= formatCareerName(c.name) === formatCareerName(career) ? "selected" : "" %>
             >
-              <%= career.name %>
+              <%= c.name %>
             </option>
             <% }); %>
           </select>

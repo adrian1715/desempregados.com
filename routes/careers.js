@@ -17,36 +17,22 @@ const CareerPage = require("../models/CareerPage");
 // CAREERS HOMEPAGE
 router.get("/", async (req, res) => {
   const careers = await Career.find().populate("pages");
-  res.render("careers/index", { careers, formatCareerName });
+  res.render("careers/index", {
+    careers,
+    formatCareerName,
+    styles: ["/css/careers/index.css"],
+    scripts: ["/js/careers/index.js"],
+  });
 });
 
 // ADD NEW CAREER PAGE
 router.get(
-  "/adicionar",
+  "/:career/nova-pagina",
   catchAsync(async (req, res) => {
     const careers = await Career.find();
-    const previousPage = req.headers.referer; // get the previous page URL
-    let formattedCareer = null;
+    const { career } = req.params;
 
-    if (previousPage) {
-      const urlParts = previousPage.split("/");
-      const lastPart = urlParts.slice(-1)[0];
-      const penultimatePart = urlParts.slice(-2)[0];
-      const lastPartIsId = /^[0-9a-fA-F]{24}$/.test(lastPart);
-
-      const career = lastPartIsId ? penultimatePart : lastPart;
-      const careerObj = careers.find(
-        (c) => formatCareerName(c.name) === formatCareerName(career)
-      );
-      formattedCareer = careerObj ? careerObj.name : career;
-    }
-
-    res.render("careers/new", {
-      careers,
-      formattedCareer,
-      styles: ["/css/careers/new.css"],
-      scripts: ["/js/careers/new.js"],
-    });
+    res.render("careers/new", { careers, career, formatCareerName });
   })
 );
 
