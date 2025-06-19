@@ -13,12 +13,20 @@ router.post(
     if (!req.body.name)
       return res.status(500).json({ message: "Insert a career name!" });
 
+    const careers = await Career.find();
+    const careerExists = careers.find(
+      (career) => career.name === req.body.name
+    );
+    if (careerExists)
+      return res.status(500).json({ message: "Career already exists!" });
+
     const career = new Career(req.body);
     await career.save();
 
-    return res
-      .status(200)
-      .json({ message: "Career successfully registered!", career });
+    // return res
+    //   .status(200)
+    //   .json({ message: "Career successfully registered!", career });
+    return res.redirect("/carreiras");
   })
 );
 

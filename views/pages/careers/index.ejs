@@ -1,21 +1,46 @@
 <%- layout("../layouts/boilerplate") %>
+
+<!-- modal content -->
+<div
+  id="modal"
+  class="modal"
+  style="display: <%= showModal ? 'block' : 'none' %>"
+>
+  <div class="modal-content">
+    <span id="closeModalBtn" class="close">&times;</span>
+    <h2 class="mb-4">Adicionar nova carreira</h2>
+    <form action="/api/careers" method="POST">
+      <div class="input-group">
+        <input
+          id="career-input"
+          type="text"
+          name="name"
+          placeholder="Nome"
+          class="form-control"
+          required
+        />
+        <button type="submit" class="btn btn-success float-end">
+          <i class="bi bi-check-lg me-1"></i>Salvar
+        </button>
+      </div>
+    </form>
+  </div>
+</div>
+
 <main class="container py-5">
   <h1>Carreiras</h1>
-
   <div class="container row mb-3">
     <% for (let i = 0; i < 8 && i < careers.length; i++) { if(careers[i] !==
     'index') { %>
     <div class="col-md-6 col-lg-4 career-card mb-3">
       <div class="card card-body">
         <h2 class="card-title"><%= careers[i].name %></h2>
-
         <img
           src="<%= careers[i].pages[0].header.image.url %>"
           alt="career card image"
           style="height: 12em"
           class="card-img"
         />
-
         <p class="card-text"><%= careers[i].pages[0].header.subtitle %></p>
         <div>
           <a
@@ -49,7 +74,7 @@
     <% } } } %>
   </div>
 
-  <button class="btn btn-sm btn-success ms-2">
+  <button id="openModalBtn" class="btn btn-sm btn-success ms-2">
     <i class="bi bi-patch-plus me-2"></i>Nova carreira*
   </button>
 </main>

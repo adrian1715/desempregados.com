@@ -17,6 +17,21 @@ const CareerPage = require("../models/CareerPage");
 router.get("/", async (req, res) => {
   const careers = await Career.find().populate("pages");
   res.render("careers/index", {
+    showModal: false,
+    careers,
+    formatCareerName,
+    styles: ["/css/careers/index.css"],
+    scripts: ["/js/careers/index.js"],
+  });
+});
+
+// ADD NEW CAREER
+router.get("/adicionar", async (req, res) => {
+  const careers = await Career.find().populate("pages");
+  console.log(careers);
+
+  res.render("careers/index", {
+    showModal: true,
     careers,
     formatCareerName,
     styles: ["/css/careers/index.css"],
