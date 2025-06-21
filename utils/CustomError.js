@@ -1,13 +1,9 @@
 class CustomError extends Error {
-  constructor({
-    status = 500,
-    message = "Internal Server Error",
-    info = "Something went wrong.",
-  }) {
+  constructor(message = "Internal Server Error", status = 500, info) {
     super(message);
     this.status = status;
     this.message = message;
-    this.info = info;
+    this.info = info; // something went wrong
   }
 }
 

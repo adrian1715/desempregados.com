@@ -1,6 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const catchAsync = require("express-async-handler");
+const CustomError = require("../utils/CustomError");
 
 const { toUpperCaseInitial, formatCareerName } = require("../utils/string");
 
@@ -28,8 +29,6 @@ router.get("/", async (req, res) => {
 // ADD NEW CAREER
 router.get("/adicionar", async (req, res) => {
   const careers = await Career.find().populate("pages");
-  console.log(careers);
-
   res.render("careers/index", {
     showModal: true,
     careers,
@@ -46,6 +45,13 @@ router.get(
     const careers = await Career.find();
     const { career } = req.params;
 
+    const careerExists = careers.find(
+      (c) => formatCareerName(c.name) === formatCareerName(career)
+    );
+
+    if (!careerExists)
+      throw new CustomError(`Carreira '${career}' não encontrada.`, 404);
+
     res.render("careers/new", { careers, career, formatCareerName });
   })
 );
@@ -53,7 +59,7 @@ router.get(
 // SHOW CAREER PAGE
 router.get(
   "/:career",
-  catchAsync(async (req, res) => {
+  catchAsync(async (req, res, next) => {
     // Fetch all careers from the database
     const careers = await Career.find();
 
@@ -63,7 +69,11 @@ router.get(
         formatCareerName(career.name) === formatCareerName(req.params.career)
     );
 
-    if (!careerObj) throw Error("Could not find page!");
+    if (!careerObj)
+      throw new CustomError(
+        `Carreira '${req.params.career}' não encontrada.`,
+        404
+      );
 
     const careerPages = await CareerPage.find({
       career: careerObj._id,
@@ -80,7 +90,7 @@ router.get(
       });
     }
 
-    if (!careerPages) throw Error("Could not find page!");
+    if (!careerPages) throw new CustomError("Could not find page.");
 
     return res.render("careers/pages", {
       currentPath: req.path,
@@ -108,9 +118,7 @@ router.get(
       career: careerObj._id,
     }).populate("career");
 
-    console.log(careerPage);
-
-    if (!careerPage) throw Error("Could not find page.");
+    if (!careerPage) throw CustomError("Could not find page.");
 
     res.render("careers/edit", {
       careers,
@@ -132,7 +140,7 @@ router.get(
     );
     const careerPage = await CareerPage.findById(req.params.id);
 
-    if (!careerPage) throw Error("Could not find page.");
+    if (!careerPage) throw CustomError("Could not find page.");
     // return res.status(404).json({ message: "Could not find page." });
 
     res.render("careers/show", {
@@ -154,7 +162,7 @@ router.get(
       "career"
     );
 
-    if (!careerPage) throw Error("Could not find page.");
+    if (!careerPage) throw CustomError("Could not find page.");
 
     console.log(careerPage);
 

@@ -1,9 +1,11 @@
 <%- layout("../layouts/boilerplate.ejs") %>
 <main class="container d-flex justify-content-center align-items-start">
   <div class="card mt-5 col-sm-9 col-md-8 col-lg-6">
-    <div class="card-header pt-4 pb-5">
+    <div class="card-header py-4">
       <h1><%= error.status %> <%= error.message %></h1>
-      <p><%- error.info %></p>
+      <% if (error.info) { %>
+      <p><%= error.info %></p>
+      <% } %>
     </div>
     <div class="card-body">
       <button class="btn btn-secondary" onclick="window.history.back()">

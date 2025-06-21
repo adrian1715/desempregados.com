@@ -9,9 +9,9 @@ const notFound = (req, res, next) => {
 };
 
 const errorHandler = (err, req, res, next) => {
-  console.log(err);
+  console.log(`${err.name}: ${err.message}`);
   console.error(err.stack);
-  res.status(500).render("../error", { error: err });
+  res.status(err.status || 500).render("../error", { error: err });
 };
 
 const multerErrorHandler = (err, req, res, next) => {
