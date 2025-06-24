@@ -69,9 +69,10 @@
         <h2>Educação e Habilidades</h2>
         <div class="input-group mx-3">
           <label for="education-and-skills-text" class="input-group-text"
-            >Texto (not required)</label
+            >Texto</label
           >
           <textarea
+            required
             name="educationAndSkills[text]"
             id="education-and-skills-text"
             class="form-control"
@@ -248,7 +249,7 @@
         </button>
       </div>
     </div>
-    <div id="images" class="mb-3">
+    <div id="images" class="mb-4">
       <h2>Imagens</h2>
       <div class="row mx-3">
         <div id="img-1" class="card col-12 col-md-4 mb-2 mb-md-0">
@@ -338,18 +339,18 @@
         </div>
       </div>
     </div>
-    <button type="submit" class="btn btn-success ms-2 float-end btn-sm">
+    <button type="submit" class="btn btn-success ms-2 float-end">
       <i class="bi bi-check2 me-2"></i>Salvar
     </button>
   </form>
 
   <div class="text-center">
-    <a href="/carreiras" class="btn btn-primary btn-sm"
+    <a href="/carreiras" class="btn btn-primary"
       ><i class="bi bi-suitcase-lg me-2"></i>Carreiras</a
     >
     <a
       href="/carreiras/<%= careerPage.career.name.toLowerCase() %>/<%= careerPage._id %>"
-      class="btn btn-secondary btn-sm"
+      class="btn btn-secondary"
       ><i class="bi bi-file-earmark me-2"></i>Voltar à página</a
     >
   </div>
