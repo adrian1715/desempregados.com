@@ -52,7 +52,13 @@ router.get(
     if (!careerExists)
       throw new CustomError(`Carreira '${career}' não encontrada.`, 404);
 
-    res.render("careers/new", { careers, career, formatCareerName });
+    res.render("careers/new", {
+      careers,
+      career,
+      formatCareerName,
+      scripts: ["/js/careers/new.js"],
+      styles: ["/css/careers/new.css"],
+    });
   })
 );
 
