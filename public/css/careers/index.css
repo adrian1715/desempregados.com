@@ -11,6 +11,7 @@
   background: #fff;
   padding: 3.5rem 2rem;
   margin: 10% auto;
+  max-width: 90%;
   width: 30em;
   height: 15em;
 }
@@ -21,4 +22,19 @@
   right: 0.5rem;
   cursor: pointer;
   z-index: 1;
+}
+
+@media (max-width: 576px) {
+  #modal {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  #submit-career-btn {
+    border-radius: 3px;
+    margin-top: 0.5rem;
+  }
+  #career-input {
+    border-radius: 3px;
+  }
 }

@@ -1,6 +1,6 @@
-const openModalBtn = document.getElementById("openModalBtn");
+const openModalBtn = document.getElementById("open-modal-btn");
 const modal = document.getElementById("modal");
-const closeModalBtn = document.getElementById("closeModalBtn");
+const closeModalBtn = document.getElementById("close-modal-btn");
 const careerInput = document.getElementById("career-input");
 
 openModalBtn.addEventListener("click", () => {

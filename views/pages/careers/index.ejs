@@ -7,7 +7,7 @@
   style="display: <%= showModal ? 'block' : 'none' %>"
 >
   <div class="modal-content">
-    <span id="closeModalBtn" class="close">&times;</span>
+    <span id="close-modal-btn" class="close">&times;</span>
     <h2 class="mb-4">Adicionar nova carreira</h2>
     <form action="/api/careers" method="POST">
       <div class="input-group">
@@ -16,10 +16,14 @@
           type="text"
           name="name"
           placeholder="Nome"
-          class="form-control"
+          class="form-control col-12 col-sm-auto"
           required
         />
-        <button type="submit" class="btn btn-success float-end">
+        <button
+          id="submit-career-btn"
+          type="submit"
+          class="btn btn-success float-end col-12 col-sm-auto rounded-left-0"
+        >
           <i class="bi bi-check-lg me-1"></i>Salvar
         </button>
       </div>
@@ -30,7 +34,7 @@
 <main class="container py-5">
   <div class="d-flex justify-content-between align-items-center mb-3">
     <h1 class="d-inline-block">Carreiras</h1>
-    <button id="openModalBtn" class="btn btn-success ms-2">
+    <button id="open-modal-btn" class="btn btn-success ms-2">
       <i class="bi bi-patch-plus me-2"></i>Nova carreira*
     </button>
   </div>
