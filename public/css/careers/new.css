@@ -22,3 +22,9 @@
   opacity: 0.85;
   cursor: pointer;
 }
+
+#career {
+  cursor: not-allowed;
+  pointer-events: none;
+  background: #e9ecef;
+}
