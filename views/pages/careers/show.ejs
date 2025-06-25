@@ -1,10 +1,36 @@
 <%- layout("../layouts/boilerplate") %>
 
+<!-- modal content -->
+<div id="modal" class="modal">
+  <div class="modal-content px-4">
+    <span class="close-modal-btn close">&times;</span>
+    <h2>Tem certeza que deseja excluir esta página?</h2>
+    <p class="mb-4">Esta ação não poderá ser desfeita depois.</p>
+    <div class="d-flex justify-content-end">
+      <form
+        action="/api/careerPages/<%= careerPage._id %>?_method=DELETE"
+        method="POST"
+      >
+        <input
+          type="hidden"
+          name="careerPageId"
+          value="<%= careerPage._id %>"
+        />
+        <button type="submit" class="btn btn-danger me-2">Excluir</button>
+      </form>
+      <button class="close-modal-btn btn btn-secondary">Cancelar</button>
+    </div>
+  </div>
+</div>
+
 <main class="container py-5">
   <header class="article-header">
     <h1><%= careerPage.header.title %></h1>
     <p class="text-muted"><%= careerPage.header.subtitle %></p>
-    <img src="<%= careerPage.header.image.url %>" alt="" />
+    <img
+      src="<%= careerPage.header.image.url %>"
+      alt="A carreira de <%= careerPage.header.title %>"
+    />
     <p class="img-subtitle"><%= careerPage.header.image.subtitle %></p>
   </header>
   <article class="article-body">
@@ -27,7 +53,7 @@
           <img
             class="m-0 img-fluid"
             src="<%= careerPage.educationAndSkills.image.url %>"
-            alt=""
+            alt="Educação e habilidades da carreira de <%= careerPage.header.title %>"
           />
           <p class="img-subtitle m-0 mw-100">
             <%= careerPage.educationAndSkills.image.subtitle %>
@@ -50,7 +76,7 @@
         <img
           class="col-lg-6"
           src="<%= careerPage.challengesAndRewards.image.url %>"
-          alt=""
+          alt="Desafios e recompensas da carreira de <%= careerPage.header.title %>"
         />
         <p class="img-subtitle col-lg-6">
           <%= careerPage.challengesAndRewards.image.subtitle %>
@@ -75,6 +101,10 @@
       <a href="<%= currentUrl %>/editar" class="btn btn-warning ms-2"
         ><i class="bi bi-pencil me-2"></i>Editar*</a
       >
+      <!-- delete button -->
+      <button class="btn btn-danger ms-2" id="open-modal-btn">
+        <i class="bi bi-trash me-2"></i>Excluir*
+      </button>
       <a
         href="/carreiras/<%= careerName %>/nova-pagina"
         class="btn btn-success ms-2"

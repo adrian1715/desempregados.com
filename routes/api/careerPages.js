@@ -6,6 +6,8 @@ const Career = require("../../models/Career");
 
 const multer = require("multer");
 const { storage } = require("../../config/cloudinary");
+const { formatCareerName } = require("../../utils/string");
+
 const upload = multer({ storage }); // multer upload middleware (to handle multipart/form-data forms)
 const upload2 = multer({ dest: "uploads/" }); // to temporarily store files on the "uploads" folder (for testing purposes)
 
@@ -179,9 +181,9 @@ router.delete(
     if (!deletedPage)
       return res.status(500).json({ message: "Could not delete page." });
 
-    return res
-      .status(200)
-      .json({ message: "Career page successfully deleted", deletedPage });
+    const career = await Career.findById(deletedPage.career);
+
+    return res.redirect(`/carreiras/${formatCareerName(career.name)}`);
   })
 );
 

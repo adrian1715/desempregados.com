@@ -93,6 +93,7 @@ router.get(
         careerPages,
         careerPage: careerPages[0],
         styles: ["/css/careers/show.css"],
+        scripts: ["/js/careers/show.js"],
       });
     }
 
@@ -155,6 +156,7 @@ router.get(
       careerPages: careerObj.pages,
       careerPage,
       styles: ["/css/careers/show.css"],
+      scripts: ["/js/careers/show.js"],
     });
   })
 );
