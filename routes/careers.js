@@ -1,5 +1,6 @@
 const express = require("express");
 const router = express.Router();
+const mongoose = require("mongoose");
 const catchAsync = require("express-async-handler");
 const CustomError = require("../utils/CustomError");
 
@@ -65,7 +66,7 @@ router.get(
 // SHOW CAREER PAGE
 router.get(
   "/:career",
-  catchAsync(async (req, res, next) => {
+  catchAsync(async (req, res) => {
     // Fetch all careers from the database
     const careers = await Career.find();
 
@@ -87,7 +88,7 @@ router.get(
 
     // rendering the career main page when it's the only one that exists
     if (careerPages.length === 1) {
-      res.render("careers/show", {
+      return res.render("careers/show", {
         currentUrl: req.originalUrl,
         careerName: careerObj.name.toLowerCase(),
         careerPages,
@@ -145,10 +146,13 @@ router.get(
       (career) =>
         formatCareerName(career.name) === formatCareerName(req.params.career)
     );
+
+    if (!mongoose.Types.ObjectId.isValid(req.params.id))
+      throw new CustomError("Invalid page ID.", 400);
+
     const careerPage = await CareerPage.findById(req.params.id);
 
-    if (!careerPage) throw CustomError("Could not find page.");
-    // return res.status(404).json({ message: "Could not find page." });
+    if (!careerPage) throw new CustomError("Page not found.", 404);
 
     res.render("careers/show", {
       currentUrl: req.originalUrl,
