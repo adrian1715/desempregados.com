@@ -32,6 +32,9 @@
 </div>
 
 <main class="container py-5">
+  <% if (success && success.length > 0 || error && error.length) { %> <%-
+  include("../../partials/flash") %> <% } %>
+
   <div class="d-flex justify-content-between align-items-center mb-3">
     <h1 class="d-inline-block">Carreiras</h1>
     <button id="open-modal-btn" class="btn btn-success ms-2">

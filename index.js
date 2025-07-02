@@ -3,6 +3,8 @@ const app = express();
 if (process.env.NODE_ENV !== "production") require("dotenv").config();
 const PORT = process.env.PORT || 3001;
 const ejsMate = require("ejs-mate");
+const session = require("express-session");
+const flash = require("connect-flash");
 
 const getPages = require("./middlewares/getPages");
 const { notFound, errorHandler } = require("./middlewares/errorHandler");
@@ -16,9 +18,31 @@ app.set("view engine", "ejs");
 app.set("views", "views/pages");
 app.use(express.static("public"));
 
+// setting up sessions and flash
+const sessionConfig = {
+  secret: process.env.SESSION_SECRET || "defaultsecret",
+  resave: false,
+  saveUninitialized: true,
+  cookie: {
+    httpOnly: true,
+    expires: Date.now() + 1000 * 60 * 60 * 24 * 7, // 1 week (in ms)
+    maxAge: 1000 * 60 * 60 * 24 * 7, // 1 week (in ms)
+  },
+};
+app.use(session(sessionConfig));
+app.use(flash()); // flash messages
+
 // middlewares
 app.use(getPages); // getting pages
 app.use(logger); // log generator
+
+// global variables
+app.use((req, res, next) => {
+  res.locals.success = req.flash("success");
+  res.locals.error = req.flash("error");
+  res.locals.pages = res.locals.pages || [];
+  next();
+});
 
 // setting up routes
 app.use("/", require("./routes/index"));

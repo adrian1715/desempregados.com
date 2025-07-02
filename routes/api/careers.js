@@ -26,6 +26,7 @@ router.post(
     // return res
     //   .status(200)
     //   .json({ message: "Career successfully registered!", career });
+    req.flash("success", "Carreira registrada com sucesso!");
     return res.redirect("/carreiras");
   })
 );

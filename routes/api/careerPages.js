@@ -11,6 +11,7 @@ const { formatCareerName } = require("../../utils/string");
 const upload = multer({ storage }); // multer upload middleware (to handle multipart/form-data forms)
 const upload2 = multer({ dest: "uploads/" }); // to temporarily store files on the "uploads" folder (for testing purposes)
 
+// api only
 router.get("/", async (req, res) => {
   const pages = await CareerPage.find();
 
@@ -19,11 +20,12 @@ router.get("/", async (req, res) => {
   return res.status(200).json(pages);
 });
 
+// api only
 router.get(
   "/:id",
   asyncHandler(async (req, res) => {
     const { id } = req.params;
-    const page = await CareerPage.findById(id).catch((err) => null);
+    const page = await CareerPage.findById(id);
 
     if (!page)
       return res.status(400).json({ message: "Could not find page ID." });
@@ -40,12 +42,23 @@ router.post(
     { name: "challenges-and-rewards-image", maxCount: 1 },
   ]),
   asyncHandler(async (req, res) => {
-    if (!req.body)
-      return res.status(400).json({ message: "Invalid page content." });
+    if (!req.body) {
+      // return res.status(400).json({ message: "Invalid page content." });
+      req.flash("error", "Conteúdo da página inválido.");
+      return res.redirect(
+        `/carreiras/${formatCareerName(career.name)}/nova-pagina`
+      );
+    }
 
     const career = await Career.findOne({ name: req.body.career });
 
-    if (!career) return res.status(400).json({ message: "Invalid career." }); // error needs to be properly handled here!
+    if (!career) {
+      // return res.status(400).json({ message: "Invalid career." });
+      req.flash("error", "Carreira inválida.");
+      return res.redirect(
+        `/carreiras/${formatCareerName(career.name)}/nova-pagina`
+      );
+    }
 
     const newPage = new CareerPage({ ...req.body, career: career._id });
 
@@ -55,26 +68,27 @@ router.post(
       !req.files["education-and-skills-image"] ||
       !req.files["challenges-and-rewards-image"]
     ) {
-      return res
-        .status(400)
-        .json({ message: "All three images are required." });
+      // return res
+      //   .status(400)
+      //   .json({ message: "All three images are required." });
+      req.flash("error", "Todos as imagens são obrigatórias.");
+      return res.redirect(
+        `/carreiras/${formatCareerName(career.name)}/nova-pagina`
+      );
     }
 
     // assigning images to CareerPage object
     newPage.header.image = {
-      // ...newPage.header,
       url: req.files["header-image"][0].path,
       filename: req.files["header-image"][0].filename,
       subtitle: req.body.header.image.subtitle,
     };
     newPage.educationAndSkills.image = {
-      // ...newPage.educationAndSkills,
       url: req.files["education-and-skills-image"][0].path,
       filename: req.files["education-and-skills-image"][0].filename,
       subtitle: req.body.educationAndSkills.image.subtitle,
     };
     newPage.challengesAndRewards.image = {
-      // ...newPage.challengesAndRewards,
       url: req.files["challenges-and-rewards-image"][0].path,
       filename: req.files["challenges-and-rewards-image"][0].filename,
       subtitle: req.body.challengesAndRewards.image.subtitle,
@@ -83,9 +97,10 @@ router.post(
     await newPage.save();
 
     console.log(newPage);
-    // req.flash("success", "Página de carreira criada com sucesso!"); // add flash messages
+
+    req.flash("success", "Página de carreira criada com sucesso!");
     return res.redirect(
-      `/carreiras/${career.name.toLowerCase()}/${newPage._id}`
+      `/carreiras/${formatCareerName(career.name)}/${newPage._id}`
     );
   })
 );
@@ -153,21 +168,21 @@ router.put(
         };
     }
 
-    // return res.status(200).json(updatedPage);
-
     const newContent = await CareerPage.findByIdAndUpdate(
       req.params.id,
       updatedPage,
       { new: true }
     );
 
-    if (!newContent)
-      return res
-        .status(500)
-        .json({ message: "Could not update page content." });
+    if (!newContent) {
+      // return res
+      //   .status(500)
+      //   .json({ message: "Could not update page content." });
+      req.flash("error", "Não foi possível atualizar a página.");
+      return res.redirect(`/carreiras/${formatCareerName(career)}/${id}`);
+    }
 
-    // add flash messages
-    // req.flash("success", "Página de carreira criada com sucesso!");
+    req.flash("success", "Página de carreira atualizada com sucesso!");
     return res.redirect(`/carreiras/${career.toLowerCase()}/${id}`); // redirect to the updated page
   })
 );
@@ -178,12 +193,18 @@ router.delete(
     const { id } = req.params;
     const deletedPage = await CareerPage.findByIdAndDelete(id);
 
-    if (!deletedPage)
-      return res.status(500).json({ message: "Could not delete page." });
+    if (!deletedPage) {
+      // return res.status(500).json({ message: "Could not delete page." });
+
+      // flash message for error handling
+      req.flash("error", "Não foi possível excluir a página.");
+      return res.redirect(`/carreiras/${formatCareerName(career.name)}/${id}`);
+    }
 
     const career = await Career.findById(deletedPage.career);
 
-    return res.redirect(`/carreiras/${formatCareerName(career.name)}`);
+    req.flash("success", "Página de carreira excluída com sucesso!");
+    return res.redirect(`/carreiras/${formatCareerName(career.name)}/${id}`);
   })
 );
 
