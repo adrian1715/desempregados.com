@@ -1,5 +1,9 @@
-<% if (success.length) { %>
-<div class="alert alert-success alert-dismissible fade show" role="alert">
+<% if (success && success.length) { %>
+<div
+  id="flash-message"
+  class="alert alert-success alert-dismissible fade show"
+  role="alert"
+>
   <i class="bi bi-check-circle-fill me-2"></i><%= success %>
   <button
     type="button"
@@ -8,8 +12,12 @@
     aria-label="Close"
   ></button>
 </div>
-<% } %> <% if (error.length) { %>
-<div class="alert alert-danger alert-dismissible fade show" role="alert">
+<% } %> <% if (error && error.length) { %>
+<div
+  id="flash-message"
+  class="alert alert-danger alert-dismissible fade show"
+  role="alert"
+>
   <i class="bi bi-exclamation-triangle-fill me-2"></i><%= error %>
   <button
     type="button"

@@ -24,8 +24,7 @@
 </div>
 
 <main class="container py-5">
-  <% if (success && success.length > 0 || error && error.length) { %> <%-
-  include("../../partials/flash") %> <% } %>
+  <%- include("../../partials/flash") %>
 
   <header class="article-header">
     <h1><%= careerPage.header.title %></h1>

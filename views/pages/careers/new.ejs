@@ -1,8 +1,7 @@
 <%- layout("../layouts/boilerplate") %>
 
 <main class="container py-5">
-<% if (success && success.length > 0 || error && error.length) { %> <%-
-  include("../../partials/flash") %> <% } %>
+  <%- include("../../partials/flash") %>
 
   <h1 class="mb-3">Adicionar nova página de carreira</h1>
   <form
