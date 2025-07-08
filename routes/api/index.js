@@ -11,7 +11,7 @@ router.use(methodOverride("_method")); // Middleware to handle PUT and DELETE re
 router.get("/", (req, res) => res.send("it's alive!"));
 
 // API ROUTES
-router.use("/companies", require("./companies"));
+router.use("/users", require("./users"));
 router.use("/careers", require("./careers"));
 router.use("/careerPages", require("./careerPages"));
 

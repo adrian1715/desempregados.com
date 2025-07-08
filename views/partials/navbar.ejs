@@ -41,9 +41,24 @@
             <a href="/sobre" class="nav-link text-center">Sobre</a>
           </li>
         </ul>
-        <span class="ms-lg-4 py-1"
-          ><a href="/login" class="btn btn-outline-dark">Login</a>
-        </span>
+        <div class="d-flex">
+          <% if(!currentUser) { %>
+          <span class="ms-lg-4 py-1"
+            ><a href="/login" class="btn btn-outline-secondary">Login</a>
+          </span>
+          <span class="ms-lg-1 py-1"
+            ><a href="/cadastro" class="btn btn-outline-secondary">Cadastrar</a>
+          </span>
+          <% } else { %>
+          <span class="ms-lg-1 py-1"
+            ><form action="/api/users/logout" method="POST">
+              <button class="btn btn-outline-secondary"
+                >Logout</a
+              >
+            </form>
+          </span>
+          <% } %>
+        </div>
       </div>
     </div>
   </nav>

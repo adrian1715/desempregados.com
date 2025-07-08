@@ -11,7 +11,7 @@ router.get("/", (req, res) => {
     title: "Homepage - desempregados.com",
     styles: [
       "https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap",
-      "/css/home.css",
+      "/css/index.css",
     ],
   });
 });
@@ -34,10 +34,6 @@ router.get("/sobre", (req, res) => {
   res.render("sobre");
 });
 
-router.get("/login", (req, res) => {
-  res.render("auth/login");
-});
-
-router.get("/register", (req, res) => res.render("auth/register"));
+router.use("/", require("./auth"));
 
 module.exports = router;

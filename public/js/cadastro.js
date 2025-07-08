@@ -22,10 +22,10 @@ document.addEventListener("DOMContentLoaded", function () {
   }
 });
 
-const openCompanyForm = () => (window.location.href = "/register?user=company");
+const openCompanyForm = () => (window.location.href = "/cadastro?user=company");
 const openCandidateForm = () =>
-  (window.location.href = "/register?user=candidate");
-const backToMenu = () => (window.location.href = "/register");
+  (window.location.href = "/cadastro?user=candidate");
+const backToMenu = () => (window.location.href = "/cadastro");
 
 company.addEventListener("click", (e) => openCompanyForm(e));
 candidate.addEventListener("click", (e) => openCandidateForm(e));
