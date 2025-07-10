@@ -8,13 +8,14 @@
     action="/api/careerPages"
     enctype="multipart/form-data"
     method="POST"
-    class="mx-4"
+    class="mx-4 needs-validation"
+    novalidate
   >
     <div id="career-option" class="mb-3">
       <div class="d-flex align-items-center">
         <h2 class="me-3">Carreira</h2>
         <div class="input-group">
-          <select required name="career" id="career" class="form-select">
+          <select name="career" id="career" class="form-select">
             <!-- <option value="" hidden>Escolha uma opção...</option> -->
             <% careers.forEach(c => { %>
             <option
@@ -33,6 +34,7 @@
       <div class="input-group mx-3">
         <label for="title" class="input-group-text">Título</label>
         <input
+          required
           type="text"
           class="form-control"
           name="header[title]"

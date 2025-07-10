@@ -9,8 +9,14 @@
   <div class="modal-content">
     <span id="close-modal-btn" class="close">&times;</span>
     <h2 class="mb-4">Adicionar nova carreira</h2>
-    <form action="/api/careers" method="POST">
-      <div class="input-group">
+    <form
+      action="/api/careers"
+      method="POST"
+      class="needs-validation"
+      novalidate
+    >
+      <!-- do the same bootstrap validation for all the other forms (follow the example here) -->
+      <div class="input-group has-validation">
         <input
           id="career-input"
           type="text"
@@ -22,10 +28,11 @@
         <button
           id="submit-career-btn"
           type="submit"
-          class="btn btn-success float-end col-12 col-sm-auto rounded-left-0"
+          class="btn btn-success float-end col-12 col-sm-auto"
         >
           <i class="bi bi-check-lg me-1"></i>Salvar
         </button>
+        <div class="invalid-feedback">Insira um nove de carreira.</div>
       </div>
     </form>
   </div>
