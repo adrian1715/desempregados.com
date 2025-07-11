@@ -14,7 +14,7 @@ router.get("/", async (req, res) => {
 // registering a new user
 router.post(
   "/",
-  catchAsync(async (req, res) => {
+  catchAsync(async (req, res, next) => {
     // error handling (it only works through a try catch block)
     try {
       const { password, ...userData } = req.body;
@@ -40,14 +40,31 @@ router.post(
 router.post(
   "/login",
   storeReturnTo, // to save the returnTo value from session to res.locals
-  passport.authenticate("local", {
-    failureFlash: true,
-    failureRedirect: "/login",
-  }),
-  async (req, res) => {
-    req.flash("success", "Bem-vindo de volta!");
-    const redirectUrl = res.locals.returnTo || "/"; // to return to the previous route before login
-    return res.redirect(redirectUrl);
+  (req, res, next) => {
+    passport.authenticate("local", (err, user, info) => {
+      if (err) {
+        req.flash("error", "Erro ao autenticar usuário.");
+        return next(err);
+      }
+      if (!user) {
+        // Check if the error message is related to username or password
+        const errorMessage =
+          info.message === "Password or username is incorrect"
+            ? "Senha ou nome de usuário incorreto!"
+            : "Erro ao fazer login, tente novamente";
+        req.flash("error", errorMessage);
+        return res.redirect("/login");
+      }
+      req.logIn(user, (err) => {
+        if (err) {
+          req.flash("error", "Error ao fazer login.");
+          return next(err);
+        }
+        req.flash("success", "Bem-vindo de volta!");
+        const redirectUrl = res.locals.returnTo || "/";
+        return res.redirect(redirectUrl);
+      });
+    })(req, res, next);
   }
 );
 
