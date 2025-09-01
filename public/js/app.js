@@ -10,3 +10,11 @@ window.addEventListener("scroll", function () {
     navbarHeader.classList.remove("invisible", "opacity-0");
   }
 });
+
+// flash message auto hide
+const flashMessage = document.getElementById("flash-message");
+if (flashMessage) {
+  setTimeout(() => {
+    flashMessage.style.display = "none";
+  }, 10000);
+}
