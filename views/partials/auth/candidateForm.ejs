@@ -1,0 +1,134 @@
+<div id="candidate-form">
+  <div class="row mb-2 justify-content-between">
+    <div class="input-group mb-1 mb-md-0">
+      <input
+        required
+        type="text"
+        id="first-name"
+        name="name[first]"
+        placeholder="Nome"
+        class="form-control"
+      />
+    </div>
+
+    <div class="input-group mb-1 mb-md-0">
+      <input
+        required
+        type="text"
+        id="last-name"
+        name="name[last]"
+        placeholder="Sobrenome"
+        class="form-control"
+      />
+    </div>
+  </div>
+
+  <div class="row mb-2">
+    <div class="input-group mb-1 mb-md-0">
+      <div class="input-group-text">
+        <i class="bi bi-telephone-fill" title="Telefone"></i>
+      </div>
+      <input
+        required
+        type="tel"
+        id="phone"
+        name="phone"
+        placeholder="Telefone"
+        class="form-control"
+      />
+    </div>
+
+    <div class="input-group">
+      <span class="input-group-text">
+        <i class="bi bi-geo-alt-fill" title="Cidade"></i>
+      </span>
+      <input
+        required
+        type="text"
+        id="city"
+        name="location[city]"
+        placeholder="Cidade"
+        class="form-control"
+        style="max-width: 70%"
+      />
+      <select
+        required
+        name="location[state]"
+        id="state"
+        class="form-control"
+        style="max-width: 30%"
+      >
+        <option value="" selected disabled hidden>UF</option>
+        <% states.forEach(state => { %>
+        <option value="<%= state.nome %>"><%= state.sigla %></option>
+        <% }) %>
+      </select>
+    </div>
+  </div>
+
+  <div class="row mb-2">
+    <div class="input-group mb-1 mb-md-0">
+      <div class="input-group-text">
+        <i class="bi bi-envelope-at-fill" title="E-mail"></i>
+      </div>
+      <input
+        required
+        type="email"
+        id="email"
+        name="email"
+        placeholder="E-mail"
+        class="form-control"
+      />
+    </div>
+    <div class="input-group mb-1 mb-md-0">
+      <div class="input-group-text">
+        <i class="bi bi-envelope-check-fill" title="Confirmar e-mail"></i>
+      </div>
+      <input
+        required
+        type="email"
+        name="confirmEmail"
+        placeholder="Confirme o e-mail"
+        class="form-control"
+      />
+    </div>
+  </div>
+
+  <div class="input-group mt-2 col-12">
+    <div class="input-group-text">
+      <i class="bi bi-lock-fill" title="Senha"></i>
+    </div>
+    <input
+      required
+      type="password"
+      id="password"
+      name="password"
+      placeholder="Senha"
+      class="form-control"
+    />
+  </div>
+
+  <div class="input-group mt-3 col-12">
+    <div class="input-group-text">
+      <i class="bi bi-file-earmark-person-fill" title="CV"></i>
+    </div>
+    <input
+      type="file"
+      id="CV"
+      name="CV"
+      class="form-control d-none"
+      accept=".pdf, .docx, image/*"
+      required
+    />
+    <button
+      type="button"
+      id="CV-btn"
+      class="btn btn-light form-control border"
+      onclick="document.getElementById('CV').click()"
+      style="text-align: left"
+    >
+      <i class="fas fa-upload me-2"></i>
+      <span id="cv-file-text">Currículo (arquivo pdf, docx ou imagem)</span>
+    </button>
+  </div>
+</div>
