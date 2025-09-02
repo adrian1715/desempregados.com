@@ -38,7 +38,8 @@ app.use(flash()); // flash messages
 // setting up passport for authentication
 app.use(passport.initialize());
 app.use(passport.session());
-passport.use(new LocalStrategy(User.authenticate())); // used passport strategy
+// passport.use(new LocalStrategy(User.authenticate())); // default username strategy
+passport.use(User.createStrategy()); // used passport strategy (to use email for login, instead of username)
 // serialize and deserialize user
 passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());

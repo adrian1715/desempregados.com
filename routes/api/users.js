@@ -2,8 +2,10 @@ const router = require("express").Router();
 const passport = require("passport");
 
 const User = require("../../models/User");
-const { storeReturnTo } = require("../../middlewares/auth");
+const Candidate = require("../../models/Candidate");
+const Company = require("../../models/Company");
 
+const { storeReturnTo } = require("../../middlewares/auth");
 const catchAsync = require("express-async-handler");
 
 router.get("/", async (req, res) => {
@@ -15,23 +17,50 @@ router.get("/", async (req, res) => {
 router.post(
   "/",
   catchAsync(async (req, res, next) => {
-    // error handling (it only works through a try catch block)
+    const { password, confirmEmail, role, ...userData } = req.body;
+
     try {
-      const { password, ...userData } = req.body;
-      const user = new User(userData);
-      const registeredUser = await User.register(user, password); // makes user registration
-      // if user registration is successful, authenticate the user
+      // 1. Validate email
+      if (userData.email !== confirmEmail) {
+        req.flash("error", "Os e-mails não coincidem. Tente novamente.");
+        return res.redirect(`/cadastro?user=${role}`);
+      }
+
+      // 2. Create role-specific profile
+      let profile;
+      if (role === "candidate") {
+        profile = await new Candidate(userData).save();
+        // const { body } = req;
+        // return res.status(201).json({ profile, body });
+      } else if (role === "company") {
+        profile = await new Company(userData).save();
+        // return res.status(201).json(profile);
+      } else {
+        req.flash("error", "Tipo de usuário inválido.");
+        return res.redirect(`/cadastro?user=${role}`);
+      }
+
+      // 3. Create user with reference to the profile
+      const user = new User({
+        email: userData.email,
+        role,
+        profile: profile._id,
+      });
+
+      const registeredUser = await User.register(user, password); // passport-local-mongoose handles hashing
+
+      // 4. Authenticate and login
       req.login(registeredUser, (err) => {
-        if (err) {
-          return next(err);
-        }
+        if (err) return next(err);
+
         console.log("User logged in", req.user);
         req.flash("success", "Bem-vindo ao desempregados.com!");
         return res.redirect("/");
       });
     } catch (err) {
+      console.error(err);
       req.flash("error", "Erro ao cadastrar usuário!");
-      return res.redirect("/cadastro");
+      return res.redirect(`/cadastro?user=${role}`);
     }
   })
 );
