@@ -6,12 +6,12 @@ body {
 
 #desempregados-logo {
   height: 10vh;
+  font-size: 1.2rem;
 }
 
 main {
   height: 90vh !important;
-  padding-top: 15vh;
-  /* padding: 15vh 0 40vh 0 !important; */
+  padding-top: 5vh;
 }
 
 #flash-message {
@@ -19,8 +19,56 @@ main {
   border-radius: 0;
 }
 
+/* .city .form-control {
+  border-radius: 0 !important;
+}
+.state .form-control {
+  border-top-left-radius: 0 !important;
+  border-bottom-left-radius: 0 !important;
+} */
+
+/* medium breakpoints */
+@media (min-width: 768px) {
+  main {
+    padding-top: 10vh;
+  }
+  .input-group:not(.col-9):not(.col-12) {
+    width: 50% !important;
+  }
+}
+
+/* large breakpoints */
+
 @media (min-width: 992px) {
   .login-form {
-    width: 35%;
+    width: 30%;
   }
+  .register-form {
+    width: 50%;
+  }
+}
+
+.custom-file-input-wrapper {
+  position: relative;
+}
+
+.custom-file-btn {
+  width: 100%;
+  text-align: left;
+  border: 1px solid #ced4da;
+  background-color: #fff;
+  padding: 0.375rem 0.75rem;
+  border-radius: 0.25rem;
+  transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+}
+
+.custom-file-btn:hover {
+  border-color: #86b7fe;
+  box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+}
+
+.custom-file-btn:focus {
+  border-color: #86b7fe;
+  outline: 0;
+  box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
 }

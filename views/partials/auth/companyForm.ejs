@@ -1,0 +1,137 @@
+<div id="company-form">
+  <div class="row mb-2">
+    <div class="input-group">
+      <div class="input-group-text">
+        <i class="bi bi-buildings-fill" title="Nome da empresa"></i>
+      </div>
+      <input
+        required
+        type="text"
+        name="name"
+        placeholder="Nome da empresa"
+        class="form-control"
+      />
+    </div>
+    <div class="input-group">
+      <div class="input-group-text">
+        <i class="bi bi-telephone-fill" title="Telefone"></i>
+      </div>
+      <input
+        required
+        type="tel"
+        name="phone"
+        placeholder="Telefone"
+        class="form-control"
+      />
+    </div>
+  </div>
+
+  <div class="row mb-2">
+    <div class="input-group col-12">
+      <div class="input-group-text">
+        <i class="bi bi-info-circle-fill" title="Descrição"></i>
+      </div>
+      <textarea
+        required
+        name="description"
+        placeholder="Descrição da empresa (máx. 500 caracteres)"
+        class="form-control"
+        maxlength="500"
+        rows="3"
+      ></textarea>
+    </div>
+  </div>
+
+  <div class="row mb-2">
+    <div class="input-group">
+      <div class="input-group-text">
+        <i class="bi bi-globe-americas" title="País"></i>
+      </div>
+      <select
+        required
+        name="location[country]"
+        id="country"
+        class="form-select"
+        title="País"
+      >
+        <% countries.forEach(country => { %>
+        <option
+          value="<%= country %>"
+          <%= country === "Brasil" ? "selected" : ""  %>
+        >
+          <%= country %>
+        </option>
+        <% }) %>
+      </select>
+    </div>
+
+    <div class="input-group">
+      <span class="input-group-text">
+        <i class="bi bi-geo-alt-fill" title="Cidade"></i>
+      </span>
+      <input
+        required
+        type="text"
+        id="city"
+        name="location[city]"
+        placeholder="Cidade"
+        class="form-control"
+        style="max-width: 70%"
+      />
+      <!-- state select - visible only if country is Brazil -->
+      <select
+        required
+        name="location[state]"
+        id="state"
+        class="form-control"
+        style="max-width: 30%"
+      >
+        <option value="" selected disabled hidden>UF</option>
+        <% states.forEach(state => { %>
+        <option value="<%= state.nome %>"><%= state.sigla %></option>
+        <% }) %>
+      </select>
+    </div>
+  </div>
+
+  <div class="row mb-2">
+    <div class="input-group mb-1 mb-md-0">
+      <div class="input-group-text">
+        <i class="bi bi-envelope-at-fill" title="E-mail"></i>
+      </div>
+      <input
+        required
+        type="email"
+        id="email"
+        name="email"
+        placeholder="E-mail"
+        class="form-control"
+      />
+    </div>
+    <div class="input-group mb-1 mb-md-0">
+      <div class="input-group-text">
+        <i class="bi bi-envelope-check-fill" title="Confirmar e-mail"></i>
+      </div>
+      <input
+        required
+        type="email"
+        name="confirmEmail"
+        placeholder="Confirme o e-mail"
+        class="form-control"
+      />
+    </div>
+  </div>
+
+  <div class="input-group mt-2 col-12">
+    <div class="input-group-text">
+      <i class="bi bi-lock-fill" title="Senha"></i>
+    </div>
+    <input
+      required
+      type="password"
+      name="password"
+      placeholder="Senha"
+      class="form-control"
+    />
+  </div>
+</div>
