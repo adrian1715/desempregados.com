@@ -11,9 +11,12 @@ const userSchema = new Schema(
     // },
     email: {
       type: String,
-      required: true,
+      required: [true, "O e-mail é obrigatório."],
       unique: true,
-      match: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i, // regex validation
+      match: [
+        /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
+        "Insira um e-mail válido.",
+      ],
     },
     isAdmin: {
       type: Boolean,
@@ -21,18 +24,30 @@ const userSchema = new Schema(
     },
     role: {
       type: String,
-      enum: ["candidate", "company"],
-      required: true,
+      enum: {
+        values: ["candidate", "company"],
+        message: "Tipo de usuário inválido. Deve ser 'candidate' ou 'company'.",
+      },
+      required: [true, "O tipo de usuário (role) é obrigatório."],
     },
     profile: {
       type: mongoose.Schema.Types.ObjectId,
-      required: true,
-      refPath: "role", // dyamically references a Candidate or Company
+      required: [true, "Perfil associado é obrigatório."],
+      refPath: "role",
     },
   },
   { timestamps: true }
 );
 
-userSchema.plugin(passportLocalMongoose, { usernameField: "email" }); // tells passport to use email to login, instead of default username
+// async validator to provide a friendly message for unique email
+userSchema.path("email").validate(async function (value) {
+  const count = await mongoose.models.User.countDocuments({
+    email: value,
+    _id: { $ne: this._id },
+  });
+  return count === 0;
+}, "Este e-mail já está em uso.");
+
+userSchema.plugin(passportLocalMongoose, { usernameField: "email" });
 
 module.exports = mongoose.model("User", userSchema);
