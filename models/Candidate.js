@@ -4,53 +4,67 @@ const { Schema } = mongoose;
 const candidateSchema = new Schema(
   {
     name: {
-      first: { type: String, required: true, trim: true },
-      last: { type: String, required: true, trim: true },
+      first: {
+        type: String,
+        required: [true, "Insira o primeiro nome."],
+        trim: true,
+      },
+      last: {
+        type: String,
+        required: [true, "Insira o sobrenome."],
+        trim: true,
+      },
     },
     phone: {
       type: String,
-      required: true,
-      match: /^\(?\d{2}\)?\s?\d{4,5}-?\d{4}$/, // BR format
+      required: [true, "Insira um número de telefone."],
+      match: [
+        /^\(?\d{2}\)?\s?\d{4,5}-?\d{4}$/,
+        "Número de telefone inválido. Use um formato brasileiro válido — Ex: (11) 91234-5678 ou 11 1234-5678.",
+      ],
+      trim: true,
     },
-    // email: {
-    //   type: String,
-    //   required: true,
-    //   match: /^([A-Z0-9._%+-]+)@[A-Z0-9.-]+\.([A-Z]{2,})$/i, // regex validation
-    // },
     location: {
-      city: { type: String, required: true, trim: true },
+      city: {
+        type: String,
+        required: [true, "Insira a cidade."],
+        trim: true,
+      },
       state: {
         type: String,
-        enum: [
-          "Acre",
-          "Alagoas",
-          "Amapá",
-          "Amazonas",
-          "Bahia",
-          "Ceará",
-          "Distrito Federal",
-          "Espírito Santo",
-          "Goiás",
-          "Maranhão",
-          "Mato Grosso",
-          "Mato Grosso do Sul",
-          "Minas Gerais",
-          "Pará",
-          "Paraíba",
-          "Paraná",
-          "Pernambuco",
-          "Piauí",
-          "Rio de Janeiro",
-          "Rio Grande do Norte",
-          "Rio Grande do Sul",
-          "Rondônia",
-          "Roraima",
-          "Santa Catarina",
-          "São Paulo",
-          "Sergipe",
-          "Tocantins",
-        ],
-        required: true,
+        enum: {
+          values: [
+            "Acre",
+            "Alagoas",
+            "Amapá",
+            "Amazonas",
+            "Bahia",
+            "Ceará",
+            "Distrito Federal",
+            "Espírito Santo",
+            "Goiás",
+            "Maranhão",
+            "Mato Grosso",
+            "Mato Grosso do Sul",
+            "Minas Gerais",
+            "Pará",
+            "Paraíba",
+            "Paraná",
+            "Pernambuco",
+            "Piauí",
+            "Rio de Janeiro",
+            "Rio Grande do Norte",
+            "Rio Grande do Sul",
+            "Rondônia",
+            "Roraima",
+            "Santa Catarina",
+            "São Paulo",
+            "Sergipe",
+            "Tocantins",
+          ],
+          message: "Estado (UF) inválido. Informe um estado brasileiro válido.",
+        },
+        required: [true, "Insira o estado (UF)."],
       },
     },
     cv: {
@@ -60,7 +74,7 @@ const candidateSchema = new Schema(
         type: String,
         validate: {
           validator: function (v) {
-            if (!v) return true; // Allow empty values
+            if (!v) return true; // Allows empty values
             const allowedTypes = [
               "application/pdf",
               "application/vnd.openxmlformats-officedocument.wordprocessingml.document", // .docx
@@ -74,13 +88,13 @@ const candidateSchema = new Schema(
             return allowedTypes.includes(v);
           },
           message:
-            "CV must be a PDF, DOCX, or image file (JPEG, PNG, GIF, WebP)",
+            "Currículo deve ser um arquivo PDF, DOC, DOCX ou imagens (JPEG, PNG, GIF, WebP).",
         },
       },
       size: {
         type: Number,
         required: false,
-        max: [5 * 1024 * 1024, "CV file size cannot exceed 5MB"], // 5MB limit
+        max: [5 * 1024 * 1024, "O currículo não pode exceder 5MB."],
       },
       uploadDate: { type: Date, default: Date.now },
     },

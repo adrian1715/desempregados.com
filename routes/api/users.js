@@ -20,9 +20,21 @@ router.post(
     const { password, confirmEmail, role, ...userData } = req.body;
 
     try {
-      // 1. Validate email
+      // 1. Manually validate email (to avoid the creation of orphan profiles)
       if (userData.email !== confirmEmail) {
         req.flash("error", "Os e-mails não coincidem. Tente novamente.");
+        return res.redirect(`/cadastro?user=${role}`);
+      }
+      if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+.[A-Z]{2,}$/i.test(userData.email)) {
+        req.flash("error", "Insira um e-mail válido.");
+        return res.redirect(`/cadastro?user=${role}`);
+      }
+      const existingUser = await User.findOne({ email: userData.email });
+      if (existingUser) {
+        req.flash(
+          "error",
+          "Este e-mail já foi registrado. Faça login ou insira outro e-mail."
+        );
         return res.redirect(`/cadastro?user=${role}`);
       }
 
@@ -59,7 +71,19 @@ router.post(
       });
     } catch (err) {
       console.error(err);
-      req.flash("error", "Erro ao cadastrar usuário!");
+
+      // Handle Mongoose validation errors
+      if (err.name === "ValidationError") {
+        const messages = Object.values(err.errors)
+          .map((error) => error.message)
+          .join("; ");
+        req.flash("error", messages);
+      } else if (err.message) {
+        req.flash("error", err.message);
+      } else {
+        req.flash("error", "Erro ao registrar usuário.");
+      }
+
       return res.redirect(`/cadastro?user=${role}`);
     }
   })
