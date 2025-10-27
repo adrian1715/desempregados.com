@@ -1,0 +1,84 @@
+<%- layout('../layouts/boilerplate') %>
+
+<main class="container py-5">
+  <%- include('../partials/flash') %>
+
+  <h1 class="mb-3">Empresas</h1>
+
+  <% if (companies.length === 0) { %>
+  <div class="alert alert-info">Nenhuma empresa registrada.</div>
+  <% } else { %>
+  <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-3">
+    <% companies.forEach((company) => { %>
+    <div class="col">
+      <div class="card h-100 shadow-sm">
+        <% if (company.logo && company.logo.filename) { %>
+        <img
+          src="/uploads/<%= company.logo.filename %>"
+          class="card-img-top"
+          alt="<%= company.name %> logo"
+          style="object-fit: cover; height: 160px"
+        />
+        <% } else { %>
+        <div
+          class="bg-light d-flex align-items-center justify-content-center"
+          style="height: 160px"
+        >
+          <i class="bi bi-building" style="font-size: 48px; color: #6c757d"></i>
+        </div>
+        <% } %>
+
+        <div class="card-body d-flex flex-column">
+          <h5 class="card-title mb-1"><%= company.name %></h5>
+
+          <p
+            class="card-text text-muted mb-2"
+            style="max-height: 3.6em; overflow: hidden"
+            title="<%= company.description ? company.description.replace(/"/g, '&quot;') : 'Sem descrição.' %>"
+          >
+            <%= company.description ? truncateToLastWord(company.description, 100) : 'Sem descrição.' %>
+          </p>
+
+          <div class="mt-auto">
+            <div class="d-flex flex-wrap justify-content-between gap-2 mb-2">
+              <% if (company.phone) { %>
+              <span class="badge bg-secondary"
+                ><i class="bi bi-telephone me-1"></i><%= company.phone %></span
+              >
+              <% } %> <% if (company.location && (company.location.city ||
+              company.location.state)) { %>
+              <span class="badge bg-info text-dark">
+                <i class="bi bi-geo-alt me-1"></i>
+                <%= company.location.city %><% if (company.location.city
+                && company.location.state) { %>, <% } %><%=
+                company.location.state %>
+              </span>
+              <% } %>
+
+              <span class="badge bg-primary">
+                <i class="bi bi-briefcase me-1"></i>
+                <%= (company.postedJobs && company.postedJobs.length) || 0 %>
+                vagas
+              </span>
+            </div>
+
+            <div class="d-flex justify-content-between align-items-center">
+              <a
+                href="/empresas/<%= company._id %>"
+                class="btn btn-sm btn-outline-primary"
+                >Ver empresa</a
+              >
+              <small class="text-muted">
+                <%= company.createdAt ? new
+                Date(company.createdAt).toLocaleDateString('pt-BR') : '' %>
+              </small>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <% }) %>
+  </div>
+
+  <% } %>
+</main>
