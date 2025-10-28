@@ -1,6 +1,7 @@
 const express = require("express");
 const router = express.Router();
 
+const User = require("../models/User");
 const Company = require("../models/Company");
 const Candidate = require("../models/Candidate");
 
@@ -32,8 +33,20 @@ router.get("/empresas", async (req, res) => {
 
 router.use("/carreiras", require("./careers"));
 
-router.get("/candidatos", (req, res) => {
-  res.render("candidatos");
+router.get("/candidatos", async (req, res) => {
+  const candidates = await Candidate.find();
+  const companies = await Company.find();
+  const emails = await User.find({
+    profile: { $in: candidates.map((c) => c._id) },
+  }).select("email");
+
+  res.render("candidates", {
+    candidates,
+    companies,
+    emails,
+    truncateToLastWord,
+    query: "",
+  });
 });
 
 router.get("/sobre", (req, res) => {
