@@ -5,7 +5,7 @@ const User = require("../models/User");
 const Company = require("../models/Company");
 const Candidate = require("../models/Candidate");
 
-const { truncateToLastWord } = require("../utils/string");
+const { truncateToLastWord, formatState } = require("../utils/string");
 
 // API
 router.use("/api", require("./api/index.js"));
@@ -28,7 +28,7 @@ router.get("/vagas", (req, res) => {
 
 router.get("/empresas", async (req, res) => {
   const companies = await Company.find();
-  res.render("companies", { companies, truncateToLastWord });
+  res.render("companies", { companies, truncateToLastWord, formatState });
 });
 
 router.use("/carreiras", require("./careers"));
@@ -44,8 +44,8 @@ router.get("/candidatos", async (req, res) => {
     candidates,
     companies,
     emails,
+    formatState,
     truncateToLastWord,
-    query: "",
   });
 });
 

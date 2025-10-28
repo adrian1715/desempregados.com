@@ -47,11 +47,10 @@
               >
               <% } %> <% if (company.location && (company.location.city ||
               company.location.state)) { %>
-              <span class="badge bg-info text-dark">
+              <span class="col-auto badge bg-info text-dark">
                 <i class="bi bi-geo-alt me-1"></i>
-                <%= company.location.city %><% if (company.location.city
-                && company.location.state) { %>, <% } %><%=
-                company.location.state %>
+                <%= company.location.city %>, <%=
+                formatState(company.location.state, 1) %>
               </span>
               <% } %>
 

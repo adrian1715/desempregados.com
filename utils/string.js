@@ -24,3 +24,8 @@ module.exports.truncateToLastWord = (str, max) => {
 
   return truncated + "...";
 };
+
+module.exports.formatState = (state, index) => {
+  if (!state || !state.includes("|")) return state;
+  return state.split("|")[index].trim();
+};

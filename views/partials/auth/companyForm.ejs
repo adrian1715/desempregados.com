@@ -88,7 +88,9 @@
       >
         <option value="" selected disabled hidden>UF</option>
         <% states.forEach(state => { %>
-        <option value="<%= state.nome %>"><%= state.sigla %></option>
+        <option value="<%= state.nome %>|<%= state.sigla %>">
+          <%= state.sigla %>
+        </option>
         <% }) %>
       </select>
     </div>
