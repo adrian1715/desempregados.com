@@ -17,6 +17,17 @@ const jobSchema = new Schema(
       required: true,
     },
     salary: Number,
+    type: {
+      type: String,
+      enum: [
+        "Tempo integral",
+        "Meio período",
+        "Contrato",
+        "Estágio",
+        "Temporário",
+      ],
+      required: true,
+    },
     isRemote: {
       type: Boolean,
       required: true,
@@ -32,7 +43,7 @@ const jobSchema = new Schema(
       ref: "Company",
       required: true,
     },
-    candidates: [{ type: Schema.Types.ObjectId, ref: "Candidate" }],
+    appliedCandidates: [{ type: Schema.Types.ObjectId, ref: "Candidate" }],
   },
   { timestamps: true }
 );

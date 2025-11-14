@@ -14,5 +14,6 @@ router.get("/", (req, res) => res.send("it's alive!"));
 router.use("/users", require("./users"));
 router.use("/careers", require("./careers"));
 router.use("/careerPages", require("./careerPages"));
+router.use("/jobs", require("./jobs"));
 
 module.exports = router;

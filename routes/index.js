@@ -22,9 +22,7 @@ router.get("/", (req, res) => {
   });
 });
 
-router.get("/vagas", (req, res) => {
-  res.render("vagas");
-});
+router.use("/vagas", require("./jobs"));
 
 router.get("/empresas", async (req, res) => {
   const companies = await Company.find();
