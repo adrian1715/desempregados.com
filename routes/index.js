@@ -26,7 +26,7 @@ router.use("/vagas", require("./jobs"));
 
 router.get("/empresas", async (req, res) => {
   const companies = await Company.find();
-  res.render("companies", { companies, truncateToLastWord, formatState });
+  res.render("empresas", { companies, truncateToLastWord, formatState });
 });
 
 router.use("/carreiras", require("./careers"));
@@ -38,7 +38,7 @@ router.get("/candidatos", async (req, res) => {
     profile: { $in: candidates.map((c) => c._id) },
   }).select("email");
 
-  res.render("candidates", {
+  res.render("candidatos", {
     candidates,
     companies,
     emails,
