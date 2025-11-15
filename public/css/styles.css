@@ -1,15 +1,12 @@
-/* html, */
 body {
   margin: 0;
   padding: 0;
-  /* height: 100vh; */
-  /* min-height: 100vh; */
-  /* min-height: calc(100vh - 90px); */
 }
 
 /* NAVBAR */
 #header-navbar {
   transition: all 0.3s ease;
+  height: 13vh;
 }
 
 nav {
@@ -33,7 +30,7 @@ nav {
 /* MAIN */
 main {
   /* flex: 1; */
-  min-height: calc(100vh - 88px);
+  min-height: 87vh;
 }
 
 /* FOOTER */
