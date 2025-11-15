@@ -11,7 +11,7 @@ router.get("/", async (req, res) => {
   const jobs = await Job.find();
   const companies = await Company.find();
   const careers = await Career.find();
-  res.render("jobs/index", {
+  res.render("vagas/index", {
     jobs,
     companies,
     careers,
@@ -23,7 +23,7 @@ router.get("/", async (req, res) => {
 // render "add job" page with companies and careers
 router.get("/adicionar", async (req, res) => {
   const careers = await Career.find();
-  res.render("jobs/new", { careers, scripts: ["/js/jobs/new.js"] });
+  res.render("vagas/new", { careers, scripts: ["/js/jobs/new.js"] });
 });
 
 module.exports = router;

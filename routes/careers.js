@@ -17,8 +17,8 @@ const CareerPage = require("../models/CareerPage");
 
 // CAREERS HOMEPAGE
 router.get("/", async (req, res) => {
-  const careers = await Career.find().populate("pages");
-  res.render("careers/index", {
+  const careers = await Career.find().populate("pages").sort({ name: 1 });
+  res.render("carreiras/index", {
     showModal: false,
     careers,
     formatCareerName,
@@ -30,7 +30,7 @@ router.get("/", async (req, res) => {
 // ADD NEW CAREER
 router.get("/adicionar", async (req, res) => {
   const careers = await Career.find().populate("pages");
-  res.render("careers/index", {
+  res.render("carreiras/index", {
     showModal: true,
     careers,
     formatCareerName,
@@ -53,7 +53,7 @@ router.get(
     if (!careerExists)
       throw new CustomError(`Carreira '${career}' não encontrada.`, 404);
 
-    res.render("careers/new", {
+    res.render("carreiras/new", {
       careers,
       career,
       formatCareerName,
@@ -88,7 +88,7 @@ router.get(
 
     // rendering the career main page when it's the only one that exists
     if (careerPages.length === 1) {
-      return res.render("careers/show", {
+      return res.render("carreiras/show", {
         currentUrl: req.originalUrl,
         careerName: careerObj.name.toLowerCase(),
         careerPages,
@@ -100,7 +100,7 @@ router.get(
 
     if (!careerPages) throw new CustomError("Could not find page.");
 
-    return res.render("careers/pages", {
+    return res.render("carreiras/pages", {
       currentPath: req.path,
       career: careerObj,
       careerPages,
@@ -128,7 +128,7 @@ router.get(
 
     if (!careerPage) throw CustomError("Could not find page.");
 
-    res.render("careers/edit", {
+    res.render("carreiras/edit", {
       careers,
       careerPage,
       styles: ["/css/careers/new.css"],
@@ -154,7 +154,7 @@ router.get(
 
     if (!careerPage) throw new CustomError("Page not found.", 404);
 
-    res.render("careers/show", {
+    res.render("carreiras/show", {
       currentUrl: req.originalUrl,
       careerName: careerObj.name.toLowerCase(),
       careerPages: careerObj.pages,
@@ -178,7 +178,7 @@ router.get(
 
     console.log(careerPage);
 
-    res.render("careers/edit", {
+    res.render("carreiras/edit", {
       careers,
       careerPage,
       styles: ["/css/careers/new.css"],
