@@ -2,199 +2,269 @@
 
 <main>
   <div class="container">
-    <h1 id="welcome-message" class="col-10">Bem-vindo, desempregado!</h1>
-    <br />
-    <p class="col-9 col-lg-8 fs-2 fw-semibold">Como podemos te ajudar hoje?</p>
-    <form action="" class="mt-3 col-11">
-      <div class="input-group w-75">
-        <input
-          type="search"
-          placeholder="Busque seu novo trampo aqui"
-          class="form-control"
-          style="height: 50px"
-        />
-        <button type="submit" id="search-button" class="input-group-text">
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            width="16"
-            height="16"
-            fill="currentColor"
-            class="bi bi-search"
-            viewBox="0 0 16 16"
-          >
-            <path
-              d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"
-            />
-          </svg>
-        </button>
+    <div class="hero-content">
+      <h1 id="welcome-message" class="col-12 col-lg-10 text-dark mb-4">
+        Bem-vindo, desempregado!
+      </h1>
+      <p class="col-12 col-lg-9 fs-2 fw-semibold text-white mb-4">
+        Como podemos te ajudar hoje?
+      </p>
+      <form action="/vagas" method="GET" class="mt-4 col-12 col-lg-10">
+        <div class="input-group search-bar">
+          <input
+            type="search"
+            name="q"
+            placeholder="Busque seu novo trampo aqui"
+            class="form-control"
+          />
+          <button type="submit" id="search-button" class="input-group-text">
+            <i class="bi bi-search"></i>
+          </button>
+        </div>
+      </form>
+      <div class="quick-links mt-4">
+        <a href="/vagas" class="btn btn-light btn-lg me-2 mb-2">
+          <i class="bi bi-briefcase-fill me-2"></i>Ver todas as vagas
+        </a>
+        <a href="/empresas" class="btn btn-outline-light btn-lg mb-2">
+          <i class="bi bi-building me-2"></i>Explorar empresas
+        </a>
       </div>
-    </form>
+    </div>
   </div>
 </main>
 
-<section id="oportunities-section" class="container">
-  <h2 class="m-0">Oportunidades surgindo a todo momento</h2>
-  <p class="fs-5">Confira o que está bombando no mundo corporativo!</p>
-  <br />
-  <div class="row">
-    <div class="oportunities-cont col-12 col-md-6">
-      <h3 class="ps-xl-4">Aberto recentemente 🆕</h3>
-      <ul class="p-xl-0">
-        <% for(let i=0; i<5; i++) { %>
-        <li>lorem palmeiras não tem mundial, bi rebaixado não tem mundial</li>
-        <% } %>
-      </ul>
+<section id="features-section" class="bg-light">
+  <div class="container">
+    <div class="text-center mb-5">
+      <h2 class="display-4 mb-3">Por que escolher o desempregados.com?</h2>
+      <p class="lead text-muted">
+        A plataforma completa para sua próxima oportunidade
+      </p>
     </div>
-    <div class="oportunities-cont col-12 col-md-6">
-      <h3 class="ps-xl-4">Em alta 🔥</h3>
-      <ul class="p-xl-0">
-        <% for(let i=0; i<5; i++) { %>
-        <li>lorem palmeiras não tem mundial, bi rebaixado não tem mundial</li>
-        <% } %>
-      </ul>
+    <div class="row g-4">
+      <div class="col-12 col-md-6 col-lg-3">
+        <div class="feature-card text-center p-4 h-100">
+          <div class="feature-icon mb-3">
+            <i class="bi bi-lightning-charge-fill text-warning"></i>
+          </div>
+          <h4 class="h5 mb-3">Vagas Atualizadas</h4>
+          <p class="text-muted mb-0">
+            Milhares de oportunidades surgindo a todo momento em diversas áreas
+          </p>
+        </div>
+      </div>
+      <div class="col-12 col-md-6 col-lg-3">
+        <div class="feature-card text-center p-4 h-100">
+          <div class="feature-icon mb-3">
+            <i class="bi bi-shield-check text-success"></i>
+          </div>
+          <h4 class="h5 mb-3">Empresas Verificadas</h4>
+          <p class="text-muted mb-0">
+            Conecte-se com empresas sérias e confiáveis do mercado
+          </p>
+        </div>
+      </div>
+      <div class="col-12 col-md-6 col-lg-3">
+        <div class="feature-card text-center p-4 h-100">
+          <div class="feature-icon mb-3">
+            <i class="bi bi-rocket-takeoff-fill text-primary"></i>
+          </div>
+          <h4 class="h5 mb-3">Processo Rápido</h4>
+          <p class="text-muted mb-0">
+            Candidate-se às vagas de forma simples e rápida
+          </p>
+        </div>
+      </div>
+      <div class="col-12 col-md-6 col-lg-3">
+        <div class="feature-card text-center p-4 h-100">
+          <div class="feature-icon mb-3">
+            <i class="bi bi-people-fill text-info"></i>
+          </div>
+          <h4 class="h5 mb-3">Para Todos</h4>
+          <p class="text-muted mb-0">
+            Vagas para todas as áreas e níveis de experiência
+          </p>
+        </div>
+      </div>
     </div>
-    <a href="/vagas"
-      ><button class="btn btn-outline-dark w-100">
-        Conferir todas as vagas
-      </button></a
-    >
   </div>
 </section>
 
 <section id="companies-section" class="sec-large">
-  <div class="container d-flex justify-content-end h-100">
-    <div class="w-50 d-flex flex-column justify-content-between">
-      <div id="companies-sec-head">
-        <h2 id="companies-sec-title" class="sec-title-large">
-          Excelentes empresas querem talentos como você
-        </h2>
-        <p
-          id="companies-sec-subtitle"
-          class="fs-4 text-light mb-5 sec-subtitle-large"
-        >
-          Vai ficar de fora dessa?
-        </p>
+  <div class="container h-100">
+    <div class="row h-100 align-items-center">
+      <div class="col-12 col-lg-6 offset-lg-6">
+        <div class="mb-4">
+          <h2 class="sec-title-large text-white mb-3">
+            Excelentes empresas querem talentos como você
+          </h2>
+          <p class="fs-4 text-light sec-subtitle-large mb-4">
+            Centenas de empresas estão buscando profissionais qualificados. Não
+            perca essa oportunidade!
+          </p>
+        </div>
+        <div class="d-flex flex-column flex-sm-row gap-3">
+          <a href="/empresas" class="btn btn-light btn-lg flex-grow-1">
+            <i class="bi bi-building me-2"></i>Ver empresas
+          </a>
+          <a href="/vagas" class="btn btn-outline-light btn-lg flex-grow-1">
+            <i class="bi bi-search me-2"></i>Ver vagas
+          </a>
+        </div>
       </div>
-      <a href="/empresas" class="btn btn-dark w-100 py-3 fs-5"
-        >Quero meu trabalho dos sonhos</a
-      >
     </div>
   </div>
 </section>
 
-<section id="careers-section" class="container">
-  <h2>Encontre a carreira perfeita para você</h2>
-  <p class="fs-5">
-    Milhares de ofertas surgindo a todo momento. Não fique de fora dessa!
-  </p>
-  <br />
-  <div class="row justify-content-center">
-    <a
-      href="/carreiras/medicos"
-      class="card col-5 col-md-3 col-lg-2 mx-3 mx-md-4 mb-4 d-flex flex-column p-0"
-    >
-      <img
-        src="https://static6.depositphotos.com/1085342/582/i/950/depositphotos_5821681-stock-photo-crazy-doctor-nerd.jpg"
-        alt="Doctor"
-        class="img-fluid h-100"
-      />
-      <span class="card-title border-top py-3 m-0 text-center fw-semibold"
-        >Médico</span
-      >
-    </a>
-    <a
-      href="/carreiras/engenheiros"
-      class="card col-5 col-md-3 col-lg-2 mx-3 mx-md-4 mb-4 d-flex flex-column p-0"
-    >
-      <img src="/img/home/engineer.jpeg" alt="" class="img-fluid h-100" />
-      <span class="card-title border-top py-3 m-0 text-center fw-semibold"
-        >Engenheiro</span
-      >
-    </a>
-    <a
-      href="/carreiras/advogados"
-      class="card col-5 col-md-3 col-lg-2 mx-3 mx-md-4 mb-4 d-flex flex-column p-0"
-    >
-      <img
-        src="https://cinepop.com.br/wp-content/uploads/2022/04/better-call-saul-2.jpg"
-        alt="Lawyer"
-        class="img-fluid h-100"
-      />
-      <span class="card-title border-top py-3 m-0 text-center fw-semibold"
-        >Advogado</span
-      >
-    </a>
-    <a
-      href="/carreiras/cozinheiros"
-      class="card col-5 col-md-3 col-lg-2 mx-3 mx-md-4 mb-4 d-flex flex-column p-0"
-    >
-      <img src="/img/home/marijuana.jpg" alt="Chef" class="img-fluid h-100" />
-      <span class="card-title border-top py-3 m-0 text-center fw-semibold"
-        >Cozinheiro</span
-      >
-    </a>
-    <a
-      href="/carreiras/jogadores"
-      class="card col-5 col-md-3 col-lg-2 mx-3 mx-md-4 mb-4 d-flex flex-column p-0"
-    >
-      <img
-        src="https://images.immediate.co.uk/production/volatile/sites/3/2024/01/Vinicius-Jr-6c9ba9a.jpg?quality=90&fit=700,466"
-        alt="Player"
-        class="img-fluid h-100"
-      />
-      <span class="card-title border-top py-3 m-0 text-center fw-semibold"
-        >Jogador</span
-      >
-    </a>
-    <a
-      href="/carreiras/programadores"
-      class="card col-5 col-md-3 col-lg-2 mx-3 mx-md-4 mb-4 d-flex flex-column p-0"
-    >
-      <img
-        src="https://psalm.escreveronline.com.br/wp-content/uploads/2014/12/bigstock-Shocked-Computer-Nerd-1520709.jpg"
-        alt=""
-        class="img-fluid h-100"
-      />
-      <span class="card-title border-top py-3 m-0 text-center fw-semibold"
-        >Programador</span
-      >
-    </a>
-    <a
-      href="/carreiras/garcons"
-      class="card col-5 col-md-3 col-lg-2 mx-3 mx-md-4 mb-4 d-flex flex-column p-0"
-    >
-      <img src="/img/home/waiter.jpg" alt="" class="img-fluid h-100" />
-      <span class="card-title border-top py-3 m-0 text-center fw-semibold"
-        >Garçom</span
-      >
-    </a>
-    <a
-      href="/carreiras"
-      class="card col-5 col-md-3 col-lg-2 mx-3 mx-md-4 mb-4 d-flex flex-column p-0 justify-content-end"
-    >
-      <img src="/img/home/office.png" alt="" class="img-fluid h-100" />
-      <span class="card-title border-top py-3 m-0 text-center fw-semibold"
-        >E muito mais!</span
-      >
-    </a>
+<section id="careers-section">
+  <div class="container">
+    <div class="text-center mb-5">
+      <h2 class="text-white mb-3">Encontre a carreira perfeita para você</h2>
+      <p class="fs-5 text-white">
+        Explore oportunidades em diversas áreas profissionais
+      </p>
+    </div>
+    <div class="row justify-content-center g-3">
+      <div class="col-6 col-sm-4 col-md-3">
+        <a href="/carreiras/medicos" class="career-card">
+          <div class="career-card-image">
+            <img
+              src="https://static6.depositphotos.com/1085342/582/i/950/depositphotos_5821681-stock-photo-crazy-doctor-nerd.jpg"
+              alt="Médico"
+              class="img-fluid"
+            />
+          </div>
+          <div class="career-card-title">
+            <i class="bi bi-heart-pulse me-2"></i>Médico
+          </div>
+        </a>
+      </div>
+      <div class="col-6 col-sm-4 col-md-3">
+        <a href="/carreiras/engenheiros" class="career-card">
+          <div class="career-card-image">
+            <img
+              src="/img/home/engineer.jpeg"
+              alt="Engenheiro"
+              class="img-fluid"
+            />
+          </div>
+          <div class="career-card-title">
+            <i class="bi bi-gear-fill me-2"></i>Engenheiro
+          </div>
+        </a>
+      </div>
+      <div class="col-6 col-sm-4 col-md-3">
+        <a href="/carreiras/advogados" class="career-card">
+          <div class="career-card-image">
+            <img
+              src="https://cinepop.com.br/wp-content/uploads/2022/04/better-call-saul-2.jpg"
+              alt="Advogado"
+              class="img-fluid"
+            />
+          </div>
+          <div class="career-card-title">
+            <i class="bi bi-briefcase-fill me-2"></i>Advogado
+          </div>
+        </a>
+      </div>
+      <div class="col-6 col-sm-4 col-md-3">
+        <a href="/carreiras/cozinheiros" class="career-card">
+          <div class="career-card-image">
+            <img
+              src="/img/home/marijuana.jpg"
+              alt="Cozinheiro"
+              class="img-fluid"
+            />
+          </div>
+          <div class="career-card-title">
+            <i class="bi bi-egg-fried me-2"></i>Cozinheiro
+          </div>
+        </a>
+      </div>
+      <div class="col-6 col-sm-4 col-md-3">
+        <a href="/carreiras/jogadores" class="career-card">
+          <div class="career-card-image">
+            <img
+              src="https://images.immediate.co.uk/production/volatile/sites/3/2024/01/Vinicius-Jr-6c9ba9a.jpg?quality=90&fit=700,466"
+              alt="Jogador"
+              class="img-fluid"
+            />
+          </div>
+          <div class="career-card-title">
+            <i class="bi bi-trophy-fill me-2"></i>Jogador
+          </div>
+        </a>
+      </div>
+      <div class="col-6 col-sm-4 col-md-3">
+        <a href="/carreiras/programadores" class="career-card">
+          <div class="career-card-image">
+            <img
+              src="https://psalm.escreveronline.com.br/wp-content/uploads/2014/12/bigstock-Shocked-Computer-Nerd-1520709.jpg"
+              alt="Programador"
+              class="img-fluid"
+            />
+          </div>
+          <div class="career-card-title">
+            <i class="bi bi-code-slash me-2"></i>Programador
+          </div>
+        </a>
+      </div>
+      <div class="col-6 col-sm-4 col-md-3">
+        <a href="/carreiras/garcons" class="career-card">
+          <div class="career-card-image">
+            <img src="/img/home/waiter.jpg" alt="Garçom" class="img-fluid" />
+          </div>
+          <div class="career-card-title">
+            <i class="bi bi-cup-hot-fill me-2"></i>Garçom
+          </div>
+        </a>
+      </div>
+      <div class="col-6 col-sm-4 col-md-3">
+        <a href="/carreiras" class="career-card career-card-more">
+          <div class="career-card-image">
+            <img
+              src="/img/home/office.png"
+              alt="Mais carreiras"
+              class="img-fluid"
+            />
+          </div>
+          <div class="career-card-title">
+            <i class="bi bi-plus-circle-fill me-2"></i>Muito mais!
+          </div>
+        </a>
+      </div>
+    </div>
+    <div class="text-center mt-5">
+      <a href="/carreiras" class="btn btn-light btn-lg">
+        <i class="bi bi-grid-3x3-gap-fill me-2"></i>Ver todas as carreiras
+      </a>
+    </div>
   </div>
 </section>
 
-<section id="employees-section" class="sec-large mb-0">
-  <div class="container d-flex justify-content-end h-100">
-    <div class="w-50 d-flex flex-column justify-content-between">
-      <div id="sec-4-head">
-        <h2 id="sec-4-title" class="m-0 sec-title-large">
-          O funcionário perfeito está esperando por você
-        </h2>
-        <p id="sec-4-subtitle" class="fs-4 text-light mb-5 sec-subtitle-large">
-          Desempregados talentosos estão sonhando com esta oportunidade.
-          Contrate já!
-        </p>
+<section id="candidates-section" class="sec-large mb-0">
+  <div class="container h-100">
+    <div class="row h-100 align-items-center">
+      <div class="col-12 col-lg-6 offset-lg-6">
+        <div class="mb-4">
+          <h2 class="sec-title-large text-white mb-3">
+            O talento perfeito está esperando por você
+          </h2>
+          <p class="fs-4 text-light sec-subtitle-large mb-4">
+            Encontre profissionais qualificados e motivados para fazer parte da
+            sua equipe. Comece agora!
+          </p>
+        </div>
+        <div class="d-flex flex-column flex-sm-row gap-3">
+          <a href="/candidatos" class="btn btn-light btn-lg flex-grow-1">
+            <i class="bi bi-people-fill me-2"></i>Ver candidatos
+          </a>
+          <a href="/sobre" class="btn btn-outline-light btn-lg flex-grow-1">
+            <i class="bi bi-info-circle me-2"></i>Saiba mais
+          </a>
+        </div>
       </div>
-      <a href="/candidatos" class="btn btn-dark w-100 py-3 fs-5"
-        >Quero encontrar talentos</a
-      >
     </div>
   </div>
 </section>
