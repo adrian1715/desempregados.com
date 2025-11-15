@@ -1,4 +1,84 @@
 <%- layout('../layouts/boilerplate') %>
-<main>
-  <h1>Sobre</h1>
+
+<main class="container py-5">
+  <%- include('../partials/flash') %>
+
+  <h1 class="mb-4">Sobre o desempregados.com</h1>
+
+  <div class="row">
+    <div class="col-12 col-lg-10">
+      <p class="lead mb-4">
+        Bem-vindo ao <strong>desempregados.com</strong>, a plataforma que
+        conecta profissionais talentosos com as melhores oportunidades do
+        mercado de trabalho.
+      </p>
+
+      <h2 class="h3 mt-5 mb-3">O que fazemos</h2>
+      <p class="mb-3">
+        O desempregados.com é uma plataforma de vagas de emprego que facilita a
+        conexão entre candidatos em busca de oportunidades e empresas que
+        procuram os melhores talentos. Nossa missão é tornar o processo de busca
+        de emprego mais simples, rápido e eficiente para todos.
+      </p>
+
+      <h2 class="h3 mt-5 mb-3">Para candidatos</h2>
+      <p class="mb-3">
+        Se você está em busca de uma nova oportunidade de trabalho, o
+        desempregados.com oferece:
+      </p>
+      <ul class="mb-4">
+        <li>Acesso a milhares de vagas de diversas áreas e carreiras</li>
+        <li>Busca simples e intuitiva por vagas que combinam com seu perfil</li>
+        <li>Oportunidades atualizadas constantemente</li>
+        <li>Conexão direta com empresas que estão contratando</li>
+        <li>Processo de candidatura rápido e fácil</li>
+      </ul>
+
+      <h2 class="h3 mt-5 mb-3">Para empresas</h2>
+      <p class="mb-3">
+        Se você representa uma empresa e está em busca de talentos, o
+        desempregados.com oferece:
+      </p>
+      <ul class="mb-4">
+        <li>Acesso a um grande pool de candidatos qualificados</li>
+        <li>Ferramentas para publicar e gerenciar suas vagas</li>
+        <li>Visibilidade para sua empresa e suas oportunidades</li>
+        <li>Processo simplificado de recrutamento</li>
+        <li>Conexão com profissionais de diversas áreas</li>
+      </ul>
+
+      <h2 class="h3 mt-5 mb-3">Nossa proposta</h2>
+      <p class="mb-3">
+        Acreditamos que encontrar o emprego certo não deveria ser complicado.
+        Por isso, criamos uma plataforma acessível, transparente e eficiente,
+        onde candidatos e empresas podem se encontrar de forma simples e direta.
+      </p>
+      <p class="mb-4">
+        Seja você um médico, engenheiro, programador, garçom ou profissional de
+        qualquer outra área, temos vagas que podem ser perfeitas para você. E
+        para as empresas, oferecemos acesso a profissionais talentosos prontos
+        para contribuir com o crescimento do seu negócio.
+      </p>
+
+      <div class="alert alert-primary mt-5">
+        <h5 class="alert-heading">Pronto para começar?</h5>
+        <p class="mb-3">
+          Explore nossas vagas e encontre a oportunidade perfeita para você, ou
+          cadastre sua empresa e encontre os melhores talentos do mercado.
+        </p>
+        <hr />
+        <div class="d-flex gap-2 flex-wrap">
+          <a href="/vagas" class="btn btn-primary">
+            <i class="bi bi-search me-2"></i>Buscar Vagas
+          </a>
+          <a href="/empresas" class="btn btn-outline-primary">
+            <i class="bi bi-building me-2"></i>Ver Empresas
+          </a>
+          <a href="/candidatos" class="btn btn-outline-primary">
+            <i class="bi bi-people me-2"></i>Ver Candidatos
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
 </main>
