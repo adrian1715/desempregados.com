@@ -1,5 +1,6 @@
 <%- layout("../layouts/boilerplate") %>
 
+<% if (currentUser && currentUser.isAdmin) { %>
 <!-- modal content -->
 <div id="modal" class="modal">
   <div class="modal-content px-4">
@@ -22,6 +23,7 @@
     </div>
   </div>
 </div>
+<% } %>
 
 <main class="container py-5">
   <%- include("../../partials/flash") %>
@@ -99,19 +101,19 @@
       >
       <% } %>
 
-      <!-- make visible only to admin -->
+      <% if (currentUser && currentUser.isAdmin) { %>
       <a href="<%= currentUrl %>/editar" class="btn btn-warning ms-2"
-        ><i class="bi bi-pencil me-2"></i>Editar*</a
+        ><i class="bi bi-pencil me-2"></i>Editar</a
       >
-      <!-- delete button -->
       <button class="btn btn-danger ms-2" id="open-modal-btn">
-        <i class="bi bi-trash me-2"></i>Excluir*
+        <i class="bi bi-trash me-2"></i>Excluir
       </button>
       <a
         href="/carreiras/<%= careerName %>/nova-pagina"
         class="btn btn-success ms-2"
-        ><i class="bi bi-plus-circle me-2"></i>Nova página*</a
+        ><i class="bi bi-plus-circle me-2"></i>Nova página</a
       >
+      <% } %>
     </div>
   </article>
 </main>
