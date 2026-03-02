@@ -6,6 +6,7 @@ const mongoose = require("mongoose");
 const Job = require("../../models/Job");
 const Company = require("../../models/Company");
 const Career = require("../../models/Career");
+const Candidate = require("../../models/Candidate");
 
 const isObjectId = (id) => mongoose.Types.ObjectId.isValid(id);
 
@@ -137,6 +138,91 @@ router.put(
     if (!job) return res.status(404).json({ error: "Vaga não encontrada." });
 
     return res.status(200).json(job);
+  })
+);
+
+// apply to a job
+router.post(
+  "/:id/apply",
+  catchAsync(async (req, res) => {
+    const { id } = req.params;
+    if (!isObjectId(id)) {
+      req.flash("error", "Vaga não encontrada.");
+      return res.redirect("/vagas");
+    }
+
+    if (!req.user || req.user.role !== "candidate") {
+      req.flash("error", "Apenas candidatos podem se candidatar a vagas.");
+      return res.redirect(`/vagas/${id}`);
+    }
+
+    const [job, candidate] = await Promise.all([
+      Job.findById(id),
+      Candidate.findById(req.user.profile),
+    ]);
+
+    if (!job) {
+      req.flash("error", "Vaga não encontrada.");
+      return res.redirect("/vagas");
+    }
+    if (!candidate) {
+      req.flash("error", "Perfil de candidato não encontrado.");
+      return res.redirect(`/vagas/${id}`);
+    }
+
+    // prevent duplicate applications
+    const alreadyApplied = job.appliedCandidates.some(
+      (c) => c.toString() === candidate._id.toString()
+    );
+    if (alreadyApplied) {
+      req.flash("error", "Você já se candidatou a esta vaga.");
+      return res.redirect(`/vagas/${id}`);
+    }
+
+    job.appliedCandidates.push(candidate._id);
+    candidate.appliedJobs.push(job._id);
+    await Promise.all([job.save(), candidate.save()]);
+
+    req.flash("success", "Candidatura enviada com sucesso!");
+    return res.redirect(`/vagas/${id}`);
+  })
+);
+
+// withdraw application
+router.post(
+  "/:id/unapply",
+  catchAsync(async (req, res) => {
+    const { id } = req.params;
+    if (!isObjectId(id)) {
+      req.flash("error", "Vaga não encontrada.");
+      return res.redirect("/vagas");
+    }
+
+    if (!req.user || req.user.role !== "candidate") {
+      req.flash("error", "Apenas candidatos podem cancelar candidaturas.");
+      return res.redirect(`/vagas/${id}`);
+    }
+
+    const [job, candidate] = await Promise.all([
+      Job.findById(id),
+      Candidate.findById(req.user.profile),
+    ]);
+
+    if (!job || !candidate) {
+      req.flash("error", "Vaga ou candidato não encontrado.");
+      return res.redirect("/vagas");
+    }
+
+    job.appliedCandidates = job.appliedCandidates.filter(
+      (c) => c.toString() !== candidate._id.toString()
+    );
+    candidate.appliedJobs = candidate.appliedJobs.filter(
+      (j) => j.toString() !== job._id.toString()
+    );
+    await Promise.all([job.save(), candidate.save()]);
+
+    req.flash("success", "Candidatura cancelada.");
+    return res.redirect(`/vagas/${id}`);
   })
 );
 
