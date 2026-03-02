@@ -5,21 +5,23 @@
 
   <div class="d-flex justify-content-between align-items-center mb-3">
     <h1 class="d-inline-block">Vagas</h1>
+    <% if (currentUser && currentUser.role === 'company') { %>
     <a href="/vagas/adicionar" class="btn btn-success ms-2">
-      <i class="bi bi-patch-plus me-2"></i>Nova vaga*
+      <i class="bi bi-patch-plus me-2"></i>Nova vaga
     </a>
+    <% } %>
   </div>
 
   <!-- Filter Toggle Button -->
   <div class="mb-3">
-    <button class="btn btn-outline-primary" type="button" data-bs-toggle="collapse" data-bs-target="#filterCollapse" aria-expanded="false" aria-controls="filterCollapse">
+    <button class="btn btn-outline-primary" type="button" data-bs-toggle="collapse" data-bs-target="#filterCollapse" aria-expanded="<%= q ? 'true' : 'false' %>" aria-controls="filterCollapse">
       <i class="bi bi-funnel me-2"></i>Filtrar
       <i class="bi bi-chevron-down ms-1" id="filter-chevron"></i>
     </button>
   </div>
 
   <!-- Filter Controls -->
-  <div class="collapse mb-4" id="filterCollapse">
+  <div class="collapse<%= q ? ' show' : '' %> mb-4" id="filterCollapse">
     <div class="card">
       <div class="card-body">
         <div class="row g-3">
@@ -28,7 +30,7 @@
           <label for="filter-search" class="form-label">
             <i class="bi bi-search me-1"></i>Pesquisar
           </label>
-          <input type="text" id="filter-search" class="form-control" placeholder="Título ou descrição...">
+          <input type="text" id="filter-search" class="form-control" placeholder="Título ou descrição..." value="<%= q %>">
         </div>
 
         <!-- Career Filter -->
@@ -52,11 +54,10 @@
           <select id="filter-company" class="form-select">
             <option value="">Todas</option>
             <%
-              // Get unique companies
               const uniqueCompanies = {};
-              jobs.forEach((job, idx) => {
-                if (companies[idx] && companies[idx]._id && companies[idx].name) {
-                  uniqueCompanies[companies[idx]._id] = companies[idx].name;
+              jobs.forEach((job) => {
+                if (job.company && job.company._id && job.company.name) {
+                  uniqueCompanies[job.company._id] = job.company.name;
                 }
               });
             %>
@@ -94,35 +95,18 @@
     </div>
   </div>
 
-  <% 
-    // small helper to map internal type to user-friendly portuguese
-    function jobTypeLabel(t) {
-      const map = {
-        "full-time":"Tempo integral",
-        "part-time":"Meio período",
-        "contract":"Contrato",
-        "internship":"Estágio",
-        "temporary":"Temporário"
-      };
-      return map[t] || (t ? t : "—");
-    }
-
-    // helper to decide remote truthiness (handles 'on','true',boolean)
-    function isRemoteFlag(v){
-      return v === true || v === 'true' || v === 'on' || v === 'yes';
-    }
-  %>
-
   <% if (!Array.isArray(jobs) || jobs.length === 0) { %>
     <div class="alert alert-info">Nenhuma vaga cadastrada.</div>
   <% } else { %>
     <div id="jobs-grid" class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-3">
-      <% jobs.forEach((job, i) => {
+      <% jobs.forEach((job) => {
         const titleDesc = ((job.title || '') + ' ' + (job.description || '')).toLowerCase();
-        const companyId = companies[i] && companies[i]._id ? companies[i]._id : '';
+        const companyId = job.company && job.company._id ? job.company._id : '';
+        const companyName = job.company && job.company.name ? job.company.name : '—';
+        const positionName = job.position && job.position.name ? job.position.name : '';
       %>
         <div class="col job-card"
-             data-position-id="<%= job.position || '' %>"
+             data-position="<%= positionName %>"
              data-company-id="<%= companyId %>"
              data-created-at="<%= job.createdAt || '' %>"
              data-title-desc="<%= titleDesc.replace(/"/g, '&quot;') %>">
@@ -130,9 +114,7 @@
             <div class="card-body d-flex flex-column">
               <h5 class="card-title mb-1"><%= truncateToLastWord(job.title || '—', 50) %></h5>
 
-              <h6 class="card-subtitle text-muted mb-2">
-                <%= job.position ? companies[i].name :  '—' %>
-              </h6>
+              <h6 class="card-subtitle text-muted mb-2"><%= companyName %></h6>
 
               <p class="card-text text-muted mb-2" style="max-height:3.6em; overflow:hidden;" title="<%= job.description ? job.description.replace(/"/g,'&quot;') : '' %>">
                 <%= job.description ? truncateToLastWord(job.description, 100) : 'Sem descrição.' %>
@@ -142,26 +124,25 @@
                 <div class="d-flex flex-wrap justify-content-between gap-2 mb-2">
                   <div class="d-flex gap-2 flex-wrap">
                     <% if (job.salary) { %>
-                      <span class="badge bg-info text-dark">R$ <%= job.salary %></span>
+                      <span class="badge bg-info text-dark">R$ <%= job.salary.toLocaleString('pt-BR') %></span>
                     <% } else { %>
                       <span class="badge bg-secondary">Salário não informado</span>
                     <% } %>
 
-                    <span class="badge bg-secondary"><i class="bi bi-calendar-event me-1"></i><%= jobTypeLabel(job.type) %></span>
+                    <span class="badge bg-secondary"><i class="bi bi-calendar-event me-1"></i><%= job.type || '—' %></span>
 
-                    <% if (isRemoteFlag(job.isRemote)) { %>
+                    <% if (job.isRemote) { %>
                       <span class="badge bg-success"><i class="bi bi-house-door me-1"></i>Remoto</span>
                     <% } %>
 
-                    <% if (job.location && (job.location.city || job.location.state)) { %>
+                    <% if (job.location) { %>
                       <span class="badge bg-info text-dark">
-                        <i class="bi bi-geo-alt me-1"></i>
-                        <%= job.location.city || '' %><% if (job.location.city && job.location.state) { %>, <% } %><%= formatState ? formatState(job.location.state, 1) : (job.location.state || '') %>
+                        <i class="bi bi-geo-alt me-1"></i><%= job.location %>
                       </span>
                     <% } %>
                   </div>
 
-                  <span class="badge bg-primary"><i class="bi bi-people me-1"></i><%= (job.applicants && job.applicants.length) || (job.applied && job.applied.length) || 0 %> candidatos</span>
+                  <span class="badge bg-primary"><i class="bi bi-people me-1"></i><%= job.appliedCandidates ? job.appliedCandidates.length : 0 %> candidatos</span>
                 </div>
 
                 <div class="d-flex justify-content-between align-items-center">

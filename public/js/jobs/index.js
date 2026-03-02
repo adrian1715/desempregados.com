@@ -36,7 +36,7 @@
       let visible = true;
 
       if (career) {
-        visible = visible && card.dataset.positionId === career;
+        visible = visible && card.dataset.position === career;
       }
       if (company) {
         visible = visible && card.dataset.companyId === company;
@@ -67,7 +67,6 @@
         const tb = new Date(b.dataset.createdAt).getTime() || 0;
         return reversed ? ta - tb : tb - ta;
       });
-      // re-append in order
       visibleCards.forEach((c) => grid.appendChild(c));
     }
   }
@@ -85,13 +84,13 @@
     applyFilters();
   });
 
-  // optional: live search
+  // live search
   let timeout;
   searchInput.addEventListener("input", () => {
     clearTimeout(timeout);
     timeout = setTimeout(applyFilters, 250);
   });
 
-  // initialize (in case server-side filters were set)
+  // apply filters on load (handles ?q= from homepage search)
   applyFilters();
 })();
