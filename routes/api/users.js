@@ -65,7 +65,6 @@ router.post(
       req.login(registeredUser, (err) => {
         if (err) return next(err);
 
-        console.log("User logged in", req.user);
         req.flash("success", "Bem-vindo ao desempregados.com!");
         return res.redirect("/");
       });

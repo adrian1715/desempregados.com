@@ -9,12 +9,6 @@ const { toUpperCaseInitial, formatCareerName } = require("../utils/string");
 const Career = require("../models/Career");
 const CareerPage = require("../models/CareerPage");
 
-// // Middleware to add styles variable to response locals
-// router.use((req, res, next) => {
-//   res.locals.styles = ["/css/careers/show.css"];
-//   next();
-// });
-
 // CAREERS HOMEPAGE
 router.get("/", async (req, res) => {
   const careers = await Career.find().populate("pages").sort({ name: 1 });
@@ -175,8 +169,6 @@ router.get(
     );
 
     if (!careerPage) throw CustomError("Could not find page.");
-
-    console.log(careerPage);
 
     res.render("carreiras/edit", {
       careers,

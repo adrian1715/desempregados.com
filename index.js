@@ -6,7 +6,6 @@ const ejsMate = require("ejs-mate");
 const session = require("express-session");
 const flash = require("connect-flash");
 const passport = require("passport");
-const LocalStrategy = require("passport-local");
 const User = require("./models/User");
 
 const getPages = require("./middlewares/getPages");
@@ -38,8 +37,7 @@ app.use(flash()); // flash messages
 // setting up passport for authentication
 app.use(passport.initialize());
 app.use(passport.session());
-// passport.use(new LocalStrategy(User.authenticate())); // default username strategy
-passport.use(User.createStrategy()); // used passport strategy (to use email for login, instead of username)
+passport.use(User.createStrategy());
 // serialize and deserialize user
 passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
@@ -58,7 +56,6 @@ app.use((req, res, next) => {
 });
 // setting up routes
 app.use("/", require("./routes/index"));
-// app.use("/api"); // restful api
 
 // error middlewares
 app.use(notFound); // 404 Not Found
